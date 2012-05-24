@@ -16,6 +16,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         public IssuesView()
         {
             InitializeComponent();
+            colPriority.SortMode = DataGridViewColumnSortMode.Automatic;
         }
 
         private void InitializeStatusColorMapping()
@@ -71,9 +72,10 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                     issue.summary, issue.reporter.name, issue.last_updated.ToString());
 
                 dgvIssues.Rows[newIndex].DefaultCellStyle.BackColor = GetStatusColor(issue.status.id);
+                dgvIssues.Rows[newIndex].Tag = issue;
             }
 
-            dgvIssues.AutoResizeColumns();
+            dgvIssues.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             panel1.Visible = false;
             dgvIssues.Visible = true;
@@ -217,6 +219,19 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                 }
                 else
                     System.Media.SystemSounds.Beep.Play();
+            }
+        }
+
+        private void dgvIssues_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column == colPriority)
+            {
+                var issueA = ((org.mantisbt.www.IssueData)dgvIssues.Rows[e.RowIndex1].Tag);
+                var issueB = ((org.mantisbt.www.IssueData)dgvIssues.Rows[e.RowIndex2].Tag);
+
+                e.SortResult = int.Parse(issueA.priority.id).CompareTo(int.Parse(issueB.priority.id));
+
+                e.Handled = true;
             }
         }
 

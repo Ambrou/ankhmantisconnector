@@ -2,13 +2,11 @@
 // TODO: Advanced Settings
 // TODO: Async load
 // TODO: Search
-// TODO: Change paging buttons with images
 // TODO: Bug message parsing
 // TODO: Associating
 // TODO: Permissions check for closing bugs, adding notes, etc
 // TODO: Adding option to create new bug reports
 // TODO: Adding option when closing bugs to open a full form
-// TODO: Add issue view sorting
 // TODO: Make TortoiseSVN plugin
 using System;
 using System.Collections.Generic;

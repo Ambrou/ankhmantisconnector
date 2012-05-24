@@ -93,7 +93,6 @@
             this.colReporter,
             this.colLastUpdated});
             this.dgvIssues.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvIssues.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvIssues.Location = new System.Drawing.Point(0, 25);
             this.dgvIssues.Name = "dgvIssues";
             this.dgvIssues.RowHeadersVisible = false;
@@ -101,6 +100,7 @@
             this.dgvIssues.Size = new System.Drawing.Size(519, 121);
             this.dgvIssues.TabIndex = 2;
             this.dgvIssues.Visible = false;
+            this.dgvIssues.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvIssues_SortCompare);
             // 
             // colAssociation
             // 
@@ -111,11 +111,13 @@
             // 
             this.colPriority.HeaderText = "P";
             this.colPriority.Name = "colPriority";
+            this.colPriority.ReadOnly = true;
             // 
             // colId
             // 
             this.colId.HeaderText = "Id";
             this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
             // 
             // colCategory
             // 
@@ -123,6 +125,7 @@
             this.colCategory.DefaultCellStyle = dataGridViewCellStyle2;
             this.colCategory.HeaderText = "Category";
             this.colCategory.Name = "colCategory";
+            this.colCategory.ReadOnly = true;
             // 
             // colSeverity
             // 
@@ -130,6 +133,7 @@
             this.colSeverity.DefaultCellStyle = dataGridViewCellStyle3;
             this.colSeverity.HeaderText = "Severity";
             this.colSeverity.Name = "colSeverity";
+            this.colSeverity.ReadOnly = true;
             // 
             // colStatus
             // 
@@ -137,21 +141,25 @@
             this.colStatus.DefaultCellStyle = dataGridViewCellStyle4;
             this.colStatus.HeaderText = "Status";
             this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
             // 
             // colSummary
             // 
             this.colSummary.HeaderText = "Summary";
             this.colSummary.Name = "colSummary";
+            this.colSummary.ReadOnly = true;
             // 
             // colReporter
             // 
             this.colReporter.HeaderText = "Reported By";
             this.colReporter.Name = "colReporter";
+            this.colReporter.ReadOnly = true;
             // 
             // colLastUpdated
             // 
             this.colLastUpdated.HeaderText = "Last Updated";
             this.colLastUpdated.Name = "colLastUpdated";
+            this.colLastUpdated.ReadOnly = true;
             // 
             // toolStrip1
             // 
@@ -301,6 +309,10 @@
         private System.Windows.Forms.ToolStripButton tsbtnPrev;
         private System.Windows.Forms.ToolStripTextBox tstxtPage;
         private System.Windows.Forms.ToolStripButton tsbtnNext;
+        private System.Windows.Forms.PictureBox pbBusyLoader;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lbCurrentAction;
+        private System.Windows.Forms.Label lbLoading;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colAssociation;
         private System.Windows.Forms.DataGridViewImageColumn colPriority;
         private System.Windows.Forms.DataGridViewTextBoxColumn colId;
@@ -310,9 +322,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colSummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn colReporter;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLastUpdated;
-        private System.Windows.Forms.PictureBox pbBusyLoader;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lbCurrentAction;
-        private System.Windows.Forms.Label lbLoading;
     }
 }
