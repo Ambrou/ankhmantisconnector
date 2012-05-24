@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
 
 namespace AnkhMantisConnector.IssueTracker
 {
@@ -16,8 +14,21 @@ namespace AnkhMantisConnector.IssueTracker
 
         public string Password { get; set; }
 
+        [DefaultValue(50)]
+        public int IssuesPerPage { get; set; }
+
+        [DefaultValue(false)]
+        public bool LocalAccount { get; set; }
+
+        [DefaultValue("/api/soap/mantisconnect.php")]
+        public string WebServicePath { get; set; }
+
+        public int FetchingMethod { get; set; }
+
         public ConnectorSettings()
         {
+            IssuesPerPage = 50;
+            WebServicePath = "/api/soap/mantisconnect.php";
         }
 
     }

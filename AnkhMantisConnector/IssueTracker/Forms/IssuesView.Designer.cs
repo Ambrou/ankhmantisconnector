@@ -58,8 +58,14 @@
             this.tsbtnPrev = new System.Windows.Forms.ToolStripButton();
             this.tstxtPage = new System.Windows.Forms.ToolStripTextBox();
             this.tsbtnNext = new System.Windows.Forms.ToolStripButton();
+            this.pbBusyLoader = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lbCurrentAction = new System.Windows.Forms.Label();
+            this.lbLoading = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIssues)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBusyLoader)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvIssues
@@ -87,31 +93,29 @@
             this.colReporter,
             this.colLastUpdated});
             this.dgvIssues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvIssues.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvIssues.Location = new System.Drawing.Point(0, 25);
             this.dgvIssues.Name = "dgvIssues";
-            this.dgvIssues.ReadOnly = true;
             this.dgvIssues.RowHeadersVisible = false;
             this.dgvIssues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvIssues.Size = new System.Drawing.Size(519, 121);
             this.dgvIssues.TabIndex = 2;
+            this.dgvIssues.Visible = false;
             // 
             // colAssociation
             // 
             this.colAssociation.HeaderText = "";
             this.colAssociation.Name = "colAssociation";
-            this.colAssociation.ReadOnly = true;
             // 
             // colPriority
             // 
             this.colPriority.HeaderText = "P";
             this.colPriority.Name = "colPriority";
-            this.colPriority.ReadOnly = true;
             // 
             // colId
             // 
             this.colId.HeaderText = "Id";
             this.colId.Name = "colId";
-            this.colId.ReadOnly = true;
             // 
             // colCategory
             // 
@@ -119,7 +123,6 @@
             this.colCategory.DefaultCellStyle = dataGridViewCellStyle2;
             this.colCategory.HeaderText = "Category";
             this.colCategory.Name = "colCategory";
-            this.colCategory.ReadOnly = true;
             // 
             // colSeverity
             // 
@@ -127,7 +130,6 @@
             this.colSeverity.DefaultCellStyle = dataGridViewCellStyle3;
             this.colSeverity.HeaderText = "Severity";
             this.colSeverity.Name = "colSeverity";
-            this.colSeverity.ReadOnly = true;
             // 
             // colStatus
             // 
@@ -135,25 +137,21 @@
             this.colStatus.DefaultCellStyle = dataGridViewCellStyle4;
             this.colStatus.HeaderText = "Status";
             this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
             // 
             // colSummary
             // 
             this.colSummary.HeaderText = "Summary";
             this.colSummary.Name = "colSummary";
-            this.colSummary.ReadOnly = true;
             // 
             // colReporter
             // 
             this.colReporter.HeaderText = "Reported By";
             this.colReporter.Name = "colReporter";
-            this.colReporter.ReadOnly = true;
             // 
             // colLastUpdated
             // 
             this.colLastUpdated.HeaderText = "Last Updated";
             this.colLastUpdated.Name = "colLastUpdated";
-            this.colLastUpdated.ReadOnly = true;
             // 
             // toolStrip1
             // 
@@ -226,10 +224,50 @@
             this.tsbtnNext.Text = "toolStripButton3";
             this.tsbtnNext.Click += new System.EventHandler(this.tsbtnNext_Click);
             // 
+            // pbBusyLoader
+            // 
+            this.pbBusyLoader.Image = global::AnkhMantisConnector.Properties.Resources.busy_loader;
+            this.pbBusyLoader.Location = new System.Drawing.Point(3, 3);
+            this.pbBusyLoader.Name = "pbBusyLoader";
+            this.pbBusyLoader.Size = new System.Drawing.Size(32, 32);
+            this.pbBusyLoader.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbBusyLoader.TabIndex = 9;
+            this.pbBusyLoader.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel1.Controls.Add(this.lbCurrentAction);
+            this.panel1.Controls.Add(this.lbLoading);
+            this.panel1.Controls.Add(this.pbBusyLoader);
+            this.panel1.Location = new System.Drawing.Point(159, 60);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 44);
+            this.panel1.TabIndex = 10;
+            // 
+            // lbCurrentAction
+            // 
+            this.lbCurrentAction.AutoSize = true;
+            this.lbCurrentAction.Location = new System.Drawing.Point(41, 22);
+            this.lbCurrentAction.Name = "lbCurrentAction";
+            this.lbCurrentAction.Size = new System.Drawing.Size(0, 13);
+            this.lbCurrentAction.TabIndex = 11;
+            // 
+            // lbLoading
+            // 
+            this.lbLoading.AutoSize = true;
+            this.lbLoading.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLoading.Location = new System.Drawing.Point(41, 3);
+            this.lbLoading.Name = "lbLoading";
+            this.lbLoading.Size = new System.Drawing.Size(76, 16);
+            this.lbLoading.TabIndex = 10;
+            this.lbLoading.Text = "Loading...";
+            // 
             // IssuesView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvIssues);
             this.Controls.Add(this.toolStrip1);
             this.Name = "IssuesView";
@@ -237,6 +275,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvIssues)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBusyLoader)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -269,5 +310,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colSummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn colReporter;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLastUpdated;
+        private System.Windows.Forms.PictureBox pbBusyLoader;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lbCurrentAction;
+        private System.Windows.Forms.Label lbLoading;
     }
 }

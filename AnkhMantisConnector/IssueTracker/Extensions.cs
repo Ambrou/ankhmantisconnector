@@ -12,6 +12,8 @@ namespace AnkhMantisConnector.IssueTracker
         private const string PROPERTY_USERNAME = "username";
         private const string PROPERTY_PASSCODE = "passcode";
         private const string PROPERTY_PROJECT = "project";
+        private const string PROPERTY_PERPAGE = "perpage";
+        private const string PROPERTY_LOCALACC = "localacc";
 
         public static IssueRepositorySettings ToIssueRepositorySettings(this ConnectorSettings src)
         {
@@ -19,6 +21,8 @@ namespace AnkhMantisConnector.IssueTracker
             props[PROPERTY_USERNAME] = src.UserName;
             props[PROPERTY_PASSCODE] = src.Password;
             props[PROPERTY_PROJECT] = src.ProjectId;
+            props[PROPERTY_PERPAGE] = src.IssuesPerPage;
+            props[PROPERTY_LOCALACC] = src.LocalAccount;
 
             return new AnkhRepository(src.RepositoryUri, null, props);
         }
@@ -43,6 +47,12 @@ namespace AnkhMantisConnector.IssueTracker
 
             if (src.TryGetValue(PROPERTY_PASSCODE, out value))
                 retVal.Password = value.ToString();
+
+            if (src.TryGetValue(PROPERTY_LOCALACC, out value))
+                retVal.LocalAccount = bool.Parse(value.ToString());
+
+            if (src.TryGetValue(PROPERTY_PERPAGE, out value))
+                retVal.IssuesPerPage = int.Parse(value.ToString());
 
             return retVal;
         }

@@ -30,7 +30,7 @@
         {
             this.lblServerUrl = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAdvanced = new System.Windows.Forms.Button();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.txtServerUrl = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -38,6 +38,9 @@
             this.btnLoadProjects = new System.Windows.Forms.Button();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblProject = new System.Windows.Forms.Label();
+            this.pgAdvancedSettings = new System.Windows.Forms.PropertyGrid();
+            this.pnlSettings = new System.Windows.Forms.Panel();
+            this.pnlSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblServerUrl
@@ -58,15 +61,16 @@
             this.lblUser.Text = "Username";
             this.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // button1
+            // btnAdvanced
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(395, 135);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Advanced >>";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdvanced.Location = new System.Drawing.Point(406, 171);
+            this.btnAdvanced.Name = "btnAdvanced";
+            this.btnAdvanced.Size = new System.Drawing.Size(81, 23);
+            this.btnAdvanced.TabIndex = 9;
+            this.btnAdvanced.Text = "Advanced >>";
+            this.btnAdvanced.UseVisualStyleBackColor = true;
+            this.btnAdvanced.Click += new System.EventHandler(this.btnAdvanced_Click);
             // 
             // txtUser
             // 
@@ -135,24 +139,46 @@
             this.lblProject.Text = "Project";
             this.lblProject.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // pgAdvancedSettings
+            // 
+            this.pgAdvancedSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pgAdvancedSettings.Location = new System.Drawing.Point(3, 0);
+            this.pgAdvancedSettings.Name = "pgAdvancedSettings";
+            this.pgAdvancedSettings.Size = new System.Drawing.Size(481, 165);
+            this.pgAdvancedSettings.TabIndex = 10;
+            this.pgAdvancedSettings.Visible = false;
+            // 
+            // pnlSettings
+            // 
+            this.pnlSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlSettings.Controls.Add(this.lblProject);
+            this.pnlSettings.Controls.Add(this.lblPassword);
+            this.pnlSettings.Controls.Add(this.btnLoadProjects);
+            this.pnlSettings.Controls.Add(this.cbProjects);
+            this.pnlSettings.Controls.Add(this.txtPassword);
+            this.pnlSettings.Controls.Add(this.txtServerUrl);
+            this.pnlSettings.Controls.Add(this.txtUser);
+            this.pnlSettings.Controls.Add(this.lblUser);
+            this.pnlSettings.Controls.Add(this.lblServerUrl);
+            this.pnlSettings.Location = new System.Drawing.Point(0, 0);
+            this.pnlSettings.Name = "pnlSettings";
+            this.pnlSettings.Size = new System.Drawing.Size(487, 129);
+            this.pnlSettings.TabIndex = 11;
+            // 
             // ConfigurationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lblProject);
-            this.Controls.Add(this.lblPassword);
-            this.Controls.Add(this.btnLoadProjects);
-            this.Controls.Add(this.cbProjects);
-            this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.txtServerUrl);
-            this.Controls.Add(this.txtUser);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.lblUser);
-            this.Controls.Add(this.lblServerUrl);
+            this.Controls.Add(this.pgAdvancedSettings);
+            this.Controls.Add(this.pnlSettings);
+            this.Controls.Add(this.btnAdvanced);
             this.Name = "ConfigurationPage";
-            this.Size = new System.Drawing.Size(490, 161);
+            this.Size = new System.Drawing.Size(490, 197);
+            this.pnlSettings.ResumeLayout(false);
+            this.pnlSettings.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -160,7 +186,7 @@
 
         private System.Windows.Forms.Label lblServerUrl;
         private System.Windows.Forms.Label lblUser;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAdvanced;
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.TextBox txtServerUrl;
         private System.Windows.Forms.TextBox txtPassword;
@@ -168,5 +194,7 @@
         private System.Windows.Forms.Button btnLoadProjects;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblProject;
+        private System.Windows.Forms.PropertyGrid pgAdvancedSettings;
+        private System.Windows.Forms.Panel pnlSettings;
     }
 }

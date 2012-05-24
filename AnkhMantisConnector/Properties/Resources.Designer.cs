@@ -60,6 +60,13 @@ namespace AnkhMantisConnector.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap busy_loader {
+            get {
+                object obj = ResourceManager.GetObject("busy_loader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap priority_1 {
             get {
                 object obj = ResourceManager.GetObject("priority_1", resourceCulture);

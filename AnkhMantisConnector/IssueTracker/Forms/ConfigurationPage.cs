@@ -54,11 +54,15 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                 txtServerUrl.Text = _currentSettings.RepositoryUri.ToString();
                 txtUser.Text = _currentSettings.UserName;
                 txtPassword.Text = _currentSettings.Password;
+
+                pgAdvancedSettings.SelectedObject = _currentSettings;
             }
         }
 
         private void btnLoadProjects_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             using (var mantisConnect = new org.mantisbt.www.MantisConnect(txtServerUrl.Text + "/api/soap/mantisconnect.php"))
             {
                 ConfigPageEventArgs args = new ConfigPageEventArgs();
@@ -82,6 +86,14 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                     OnPageEvent(this, args);
                 }
             }
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void btnAdvanced_Click(object sender, EventArgs e)
+        {
+            pgAdvancedSettings.Visible = !pgAdvancedSettings.Visible;
+            pnlSettings.Visible = !pnlSettings.Visible;
         }
 
     }

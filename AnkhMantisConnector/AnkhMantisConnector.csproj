@@ -227,6 +227,9 @@
   <ItemGroup>
     <None Include="Resources\priority_none.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\busy_loader.gif" />
+  </ItemGroup>
   <PropertyGroup>
     <!--
     To specify a different registry root to register your package, uncomment the TargetRegistryRoot
