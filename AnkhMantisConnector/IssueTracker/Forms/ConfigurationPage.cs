@@ -8,13 +8,16 @@ namespace AnkhMantisConnector.IssueTracker.Forms
     {
         public event EventHandler<ConfigPageEventArgs> OnPageEvent;
 
-        ConnectorSettings _currentSettings;
+        private ConnectorSettings _currentSettings;
+        private bool _showingAdvancedSettings;
 
         internal ConnectorSettings Settings
         {
             get
             {
-                SaveSettings();
+                if (!_showingAdvancedSettings)
+                    SaveSettings();
+
                 return _currentSettings;
             }
             set
@@ -40,7 +43,8 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                 _currentSettings.RepositoryUri = new Uri(txtServerUrl.Text);
                 _currentSettings.UserName = txtUser.Text.Trim();
                 _currentSettings.Password = txtPassword.Text;
-                _currentSettings.ProjectId = ((org.mantisbt.www.ProjectData) cbProjects.SelectedItem).id;
+                if (cbProjects.SelectedItem != null)
+                    _currentSettings.ProjectId = ((org.mantisbt.www.ProjectData) cbProjects.SelectedItem).id;
             }
         }
 
@@ -63,7 +67,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            using (var mantisConnect = new org.mantisbt.www.MantisConnect(txtServerUrl.Text + "/api/soap/mantisconnect.php"))
+            using (var mantisConnect = new org.mantisbt.www.MantisConnect(txtServerUrl.Text + _currentSettings.WebServicePath ))
             {
                 ConfigPageEventArgs args = new ConfigPageEventArgs();
                 try
@@ -92,8 +96,22 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
         private void btnAdvanced_Click(object sender, EventArgs e)
         {
-            pgAdvancedSettings.Visible = !pgAdvancedSettings.Visible;
-            pnlSettings.Visible = !pnlSettings.Visible;
+            if (!_showingAdvancedSettings)
+            {
+                SaveSettings();
+                btnAdvanced.Text = "<< Simple";
+                pnlSettings.Visible = false;
+                pgAdvancedSettings.Visible = true;
+                _showingAdvancedSettings = true;
+            }
+            else
+            {
+                SelectSettings();
+                btnAdvanced.Text = "Advanced >>";
+                pgAdvancedSettings.Visible = false;
+                pnlSettings.Visible = true;
+                _showingAdvancedSettings = false;
+            }
         }
 
     }

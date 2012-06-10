@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssuesView));
             this.dgvIssues = new System.Windows.Forms.DataGridView();
             this.colAssociation = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -58,14 +58,16 @@
             this.tsbtnPrev = new System.Windows.Forms.ToolStripButton();
             this.tstxtPage = new System.Windows.Forms.ToolStripTextBox();
             this.tsbtnNext = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnNew = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnRefresh = new System.Windows.Forms.ToolStripButton();
             this.pbBusyLoader = new System.Windows.Forms.PictureBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlBusyIndicator = new System.Windows.Forms.Panel();
             this.lbCurrentAction = new System.Windows.Forms.Label();
             this.lbLoading = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIssues)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBusyLoader)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.pnlBusyIndicator.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvIssues
@@ -73,14 +75,14 @@
             this.dgvIssues.AllowUserToAddRows = false;
             this.dgvIssues.AllowUserToDeleteRows = false;
             this.dgvIssues.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvIssues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvIssues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvIssues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvIssues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colAssociation,
@@ -121,24 +123,24 @@
             // 
             // colCategory
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colCategory.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colCategory.DefaultCellStyle = dataGridViewCellStyle6;
             this.colCategory.HeaderText = "Category";
             this.colCategory.Name = "colCategory";
             this.colCategory.ReadOnly = true;
             // 
             // colSeverity
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colSeverity.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colSeverity.DefaultCellStyle = dataGridViewCellStyle7;
             this.colSeverity.HeaderText = "Severity";
             this.colSeverity.Name = "colSeverity";
             this.colSeverity.ReadOnly = true;
             // 
             // colStatus
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colStatus.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colStatus.DefaultCellStyle = dataGridViewCellStyle8;
             this.colStatus.HeaderText = "Status";
             this.colStatus.Name = "colStatus";
             this.colStatus.ReadOnly = true;
@@ -170,7 +172,9 @@
             this.tsbtnFirst,
             this.tsbtnPrev,
             this.tstxtPage,
-            this.tsbtnNext});
+            this.tsbtnNext,
+            this.tsbtnNew,
+            this.tsbtnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -199,7 +203,7 @@
             this.tsbtnFirst.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnFirst.Name = "tsbtnFirst";
             this.tsbtnFirst.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnFirst.Text = "toolStripButton1";
+            this.tsbtnFirst.Text = "First";
             this.tsbtnFirst.Click += new System.EventHandler(this.tsbtnFirst_Click);
             // 
             // tsbtnPrev
@@ -210,7 +214,7 @@
             this.tsbtnPrev.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnPrev.Name = "tsbtnPrev";
             this.tsbtnPrev.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnPrev.Text = "toolStripButton2";
+            this.tsbtnPrev.Text = "Previous";
             this.tsbtnPrev.Click += new System.EventHandler(this.tsbtnPrev_Click);
             // 
             // tstxtPage
@@ -229,8 +233,28 @@
             this.tsbtnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnNext.Name = "tsbtnNext";
             this.tsbtnNext.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnNext.Text = "toolStripButton3";
+            this.tsbtnNext.Text = "Next";
             this.tsbtnNext.Click += new System.EventHandler(this.tsbtnNext_Click);
+            // 
+            // tsbtnNew
+            // 
+            this.tsbtnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnNew.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnNew.Image")));
+            this.tsbtnNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnNew.Name = "tsbtnNew";
+            this.tsbtnNew.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnNew.Text = "New Issue";
+            this.tsbtnNew.Click += new System.EventHandler(this.tsbtnNew_Click);
+            // 
+            // tsbtnRefresh
+            // 
+            this.tsbtnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnRefresh.Image")));
+            this.tsbtnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnRefresh.Name = "tsbtnRefresh";
+            this.tsbtnRefresh.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnRefresh.Text = "Refresh";
+            this.tsbtnRefresh.Click += new System.EventHandler(this.tsbtnRefresh_Click);
             // 
             // pbBusyLoader
             // 
@@ -242,16 +266,16 @@
             this.pbBusyLoader.TabIndex = 9;
             this.pbBusyLoader.TabStop = false;
             // 
-            // panel1
+            // pnlBusyIndicator
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.panel1.Controls.Add(this.lbCurrentAction);
-            this.panel1.Controls.Add(this.lbLoading);
-            this.panel1.Controls.Add(this.pbBusyLoader);
-            this.panel1.Location = new System.Drawing.Point(159, 60);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 44);
-            this.panel1.TabIndex = 10;
+            this.pnlBusyIndicator.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pnlBusyIndicator.Controls.Add(this.lbCurrentAction);
+            this.pnlBusyIndicator.Controls.Add(this.lbLoading);
+            this.pnlBusyIndicator.Controls.Add(this.pbBusyLoader);
+            this.pnlBusyIndicator.Location = new System.Drawing.Point(159, 60);
+            this.pnlBusyIndicator.Name = "pnlBusyIndicator";
+            this.pnlBusyIndicator.Size = new System.Drawing.Size(200, 44);
+            this.pnlBusyIndicator.TabIndex = 10;
             // 
             // lbCurrentAction
             // 
@@ -275,7 +299,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlBusyIndicator);
             this.Controls.Add(this.dgvIssues);
             this.Controls.Add(this.toolStrip1);
             this.Name = "IssuesView";
@@ -284,8 +308,8 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBusyLoader)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlBusyIndicator.ResumeLayout(false);
+            this.pnlBusyIndicator.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -310,7 +334,7 @@
         private System.Windows.Forms.ToolStripTextBox tstxtPage;
         private System.Windows.Forms.ToolStripButton tsbtnNext;
         private System.Windows.Forms.PictureBox pbBusyLoader;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlBusyIndicator;
         private System.Windows.Forms.Label lbCurrentAction;
         private System.Windows.Forms.Label lbLoading;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colAssociation;
@@ -322,5 +346,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colSummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn colReporter;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLastUpdated;
+        private System.Windows.Forms.ToolStripButton tsbtnNew;
+        private System.Windows.Forms.ToolStripButton tsbtnRefresh;
     }
 }

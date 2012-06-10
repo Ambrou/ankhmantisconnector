@@ -10,6 +10,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
     {
 
         private int _currentPage = 1;
+        private string _currentFilter;
         private Dictionary<string, Color> _statusColorMapping;
         private ConnectorSettings _settings;
 
@@ -37,18 +38,35 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         {
             lbCurrentAction.Text = "Getting issues...";
             var mantisConnector =
-                new org.mantisbt.www.MantisConnect(_settings.RepositoryUri.ToString() + "/api/soap/mantisconnect.php");
+                new org.mantisbt.www.MantisConnect(_settings.RepositoryUri.ToString() + _settings.WebServicePath);
 
             mantisConnector.mc_project_get_issuesCompleted += (s, e) =>
                 {
-                    DisplayIssues(page, e.Result, e.Error, e.Cancelled);
+                    try
+                    {
+                        DisplayIssues(page, e.Result, e.Error, e.Cancelled);
+                        _currentFilter = filterId;
+                    } 
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Error obteniendo datos: " + e.Error.Message, "Error");
+                    }
 
                     mantisConnector.Dispose();
                 };
 
             mantisConnector.mc_filter_get_issuesCompleted += (s, e) =>
             {
-                DisplayIssues(page, e.Result, e.Error, e.Cancelled);
+
+                try
+                {
+                    DisplayIssues(page, e.Result, e.Error, e.Cancelled);
+                    _currentFilter = filterId;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error obteniendo datos: " + e.Error.Message, "Error");
+                }
 
                 mantisConnector.Dispose();
             };
@@ -77,7 +95,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
             dgvIssues.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
-            panel1.Visible = false;
+            pnlBusyIndicator.Visible = false;
             dgvIssues.Visible = true;
             dgvIssues.ResumeDrawing();
 
@@ -137,10 +155,16 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         {
             _settings = settings;
 
+            if (_settings.LocalAccount)
+            {
+                var settingsManager = new ConnectorSettingsManager();
+                settingsManager.LoadLocalUserSettings(_settings);
+            }
+
             InitializeStatusColorMapping();
 
             var mantisConnector =
-                new org.mantisbt.www.MantisConnect(settings.RepositoryUri.ToString() + "/api/soap/mantisconnect.php");
+                new org.mantisbt.www.MantisConnect(settings.RepositoryUri.ToString() + _settings.WebServicePath);
 
             mantisConnector.mc_filter_getCompleted += (s, e) =>
               {
@@ -157,13 +181,13 @@ namespace AnkhMantisConnector.IssueTracker.Forms
               };
 
             lbCurrentAction.Text = "Getting filters...";
-
+            
             mantisConnector.mc_filter_getAsync(settings.UserName, settings.Password, settings.ProjectId);
         }
 
         public void LoadData2(Uri repositoryUri, IDictionary<string, object> properties)
         {
-            using (var mantisConnector = new org.mantisbt.www.MantisConnect(repositoryUri.ToString() + "/api/soap/mantisconnect.php"))
+            using (var mantisConnector = new org.mantisbt.www.MantisConnect(repositoryUri.ToString() + _settings.WebServicePath))
             {
                 // Would prefer to get issue headers and cached versions of the users, priorities, etc.
                 // However, there are documented issues when there are a lot of registered users.
@@ -184,25 +208,25 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
         private void tscbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            panel1.Visible = true;
+            pnlBusyIndicator.Visible = true;
             DisplayIssues(((org.mantisbt.www.FilterData)tscbFilter.SelectedItem).id, _currentPage);
         }
 
         private void tsbtnNext_Click(object sender, EventArgs e)
         {
-            panel1.Visible = true;
+            pnlBusyIndicator.Visible = true;
             DisplayIssues(((org.mantisbt.www.FilterData)tscbFilter.SelectedItem).id, _currentPage + 1);
         }
 
         private void tsbtnPrev_Click(object sender, EventArgs e)
         {
-            panel1.Visible = true;
+            pnlBusyIndicator.Visible = true;
             DisplayIssues(((org.mantisbt.www.FilterData)tscbFilter.SelectedItem).id, _currentPage - 1);
         }
 
         private void tsbtnFirst_Click(object sender, EventArgs e)
         {
-            panel1.Visible = true;
+            pnlBusyIndicator.Visible = true;
             DisplayIssues(((org.mantisbt.www.FilterData)tscbFilter.SelectedItem).id, 1);
         }
 
@@ -214,7 +238,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
                 if (int.TryParse(tstxtPage.Text, out newPage))
                 {
-                    panel1.Visible = true;
+                    pnlBusyIndicator.Visible = true;
                     DisplayIssues(((org.mantisbt.www.FilterData) tscbFilter.SelectedItem).id, newPage);
                 }
                 else
@@ -233,6 +257,17 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
                 e.Handled = true;
             }
+        }
+
+        private void tsbtnNew_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Feature not implemented yet", "Sorry", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private void tsbtnRefresh_Click(object sender, EventArgs e)
+        {
+            pnlBusyIndicator.Visible = true;
+            DisplayIssues(_currentFilter, _currentPage);
         }
 
     }

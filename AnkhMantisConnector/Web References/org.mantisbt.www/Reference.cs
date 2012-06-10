@@ -24,7 +24,7 @@ namespace AnkhMantisConnector.org.mantisbt.www {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.5420")]
- //   [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="MantisConnectBinding", Namespace="http://futureware.biz/mantisconnect")]
     [System.Xml.Serialization.SoapIncludeAttribute(typeof(ProfileData))]

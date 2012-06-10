@@ -1,13 +1,13 @@
-﻿// TODO: Local User/Pass
-// TODO: Advanced Settings
-// TODO: Async load
-// TODO: Search
-// TODO: Bug message parsing
-// TODO: Associating
-// TODO: Permissions check for closing bugs, adding notes, etc
-// TODO: Adding option to create new bug reports
-// TODO: Adding option when closing bugs to open a full form
-// TODO: Make TortoiseSVN plugin
+﻿//TODO: Advanced Settings
+//TODO: More error handling
+//TODO: Search
+//TODO: Bug message parsing
+//TODO: Associating
+//TODO: Permissions check for closing bugs, adding notes, etc
+//TODO: Adding option to create new bug reports
+//TODO: Adding option when closing bugs to open a full form
+//TODO: Make TortoiseSVN plugin
+//TODO: Make FD plugin
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -16,15 +16,27 @@ using AnkhMantisConnector.IssueTracker.Forms;
 
 namespace AnkhMantisConnector.IssueTracker
 {
+    public enum DefaultAccessLevels
+    {
+        Anybody = 0,
+        Viewer = 10,
+        Reporter = 25,
+        Updater = 40,
+        Developer = 55,
+        Manager = 70,
+        Administrator = 90,
+        Nobody = 100
+    }
+
     /// <summary>
     /// Represents an Issue Repository
     /// </summary>
     internal class AnkhRepository : IssueRepository, IWin32Window, IDisposable
     {
-        Uri _uri;
-        string _repositoryId;
-        IDictionary<string, object> _properties;
-        IssuesView _control;
+        private ConnectorSettings _settings;
+        private IDictionary<string, object> _properties;
+        private string _repositoryId;
+        private IssuesView _control;
 
         public static IssueRepository Create(IssueRepositorySettings settings)
         {
@@ -37,9 +49,9 @@ namespace AnkhMantisConnector.IssueTracker
         public AnkhRepository(Uri uri, string repositoryId, IDictionary<string, object> properties)
             : base(PluginConstants.ConnectorName)
         {
-            _uri = uri;
             _repositoryId = repositoryId;
             _properties = properties;
+            _settings = properties.ToConnectorSettings(uri);
         }
 
         /// <summary>
@@ -47,7 +59,7 @@ namespace AnkhMantisConnector.IssueTracker
         /// </summary>
         public override Uri RepositoryUri
         {
-            get { return _uri; }
+            get { return _settings.RepositoryUri; }
         }
 
         /// <summary>
@@ -79,15 +91,7 @@ namespace AnkhMantisConnector.IssueTracker
         {
             get
             {
-                // reg expression to recognize issue id's within a text (i.e commit log message)
-                // for example:
-                // Text -> Sample id001, #id002 and id003
-                // Resolved Issue Ids -> id001, id002, id003
-                // How to test: 
-                // 1. Set the current Issue repository to be this.
-                // 2. Type a commit message in Pending Changes message box that would match this pattern
-                // 3. See that issue ids are colorized, and "open issue" context option is available
-                return @"[Ss]ample?:?\s*(#\s*)?(?<id>id\d+)(\s*(,|and)\s*(#\s*)?(?<id>id\d+))*";
+                return _settings.IssuePattern;
             }
         }
 
@@ -121,11 +125,9 @@ namespace AnkhMantisConnector.IssueTracker
         /// <param name="issueId"></param>
         public override void NavigateTo(string issueId)
         {
-            // show issue details
             if (!string.IsNullOrEmpty(issueId))
             {
-                string message = string.Format("{0} is an issue in {1}", issueId, RepositoryUri.ToString());
-                MessageBox.Show(message, "Navigate to Issue", MessageBoxButtons.OK);
+                System.Diagnostics.Process.Start(issueId);
             }
         }
 
@@ -146,7 +148,7 @@ namespace AnkhMantisConnector.IssueTracker
                 {
                     _control = CreateControl();
                 }
-                _control.LoadData(_properties.ToConnectorSettings(_uri));
+                _control.LoadData(_settings);
 
                 return _control;
             }
