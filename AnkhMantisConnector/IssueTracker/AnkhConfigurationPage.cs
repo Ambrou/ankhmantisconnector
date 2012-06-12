@@ -10,7 +10,7 @@ namespace AnkhMantisConnector.IssueTracker
     /// </summary>
     class AnkhConfigurationPage : IssueRepositoryConfigurationPage, IWin32Window
     {
-        IssueRepositorySettings _settings;
+        private IssueRepositorySettings _settings;
         private ConfigurationPage _control;
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace AnkhMantisConnector.IssueTracker
             {
                 _settings = value;
                 if (_settings != null 
-                    && string.Equals(_settings.ConnectorName, PluginConstants.ConnectorName))
+                    && _settings.ConnectorName == PluginConstants.ConnectorName)
                 {
                     // populate UI with new settings
                     ((ConfigurationPage)Control).Settings = _settings.ToConnectorSettings();

@@ -22,7 +22,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
             }
             set
             {
-                _currentSettings = value;
+                _currentSettings = value ?? new ConnectorSettings();
                 SelectSettings();
             }
         }
@@ -30,6 +30,8 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         public ConfigurationPage()
         {
             InitializeComponent();
+
+            Settings = new ConnectorSettings();
         }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                 _currentSettings.UserName = txtUser.Text.Trim();
                 _currentSettings.Password = txtPassword.Text;
                 if (cbProjects.SelectedItem != null)
-                    _currentSettings.ProjectId = ((org.mantisbt.www.ProjectData) cbProjects.SelectedItem).id;
+                    _currentSettings.ProjectId = ((org.mantisbt.www.ProjectData)cbProjects.SelectedItem).id;
             }
         }
 
@@ -53,21 +55,18 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         /// </summary>
         private void SelectSettings()
         {
-            if (_currentSettings != null)
-            {
-                txtServerUrl.Text = _currentSettings.RepositoryUri.ToString();
-                txtUser.Text = _currentSettings.UserName;
-                txtPassword.Text = _currentSettings.Password;
+            txtServerUrl.Text = _currentSettings.RepositoryUri == null ? string.Empty : _currentSettings.RepositoryUri.ToString();
+            txtUser.Text = _currentSettings.UserName;
+            txtPassword.Text = _currentSettings.Password;
 
-                pgAdvancedSettings.SelectedObject = _currentSettings;
-            }
+            pgAdvancedSettings.SelectedObject = _currentSettings;
         }
 
         private void btnLoadProjects_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            using (var mantisConnect = new org.mantisbt.www.MantisConnect(txtServerUrl.Text + _currentSettings.WebServicePath ))
+            using (var mantisConnect = new org.mantisbt.www.MantisConnect(txtServerUrl.Text + _currentSettings.WebServicePath))
             {
                 ConfigPageEventArgs args = new ConfigPageEventArgs();
                 try

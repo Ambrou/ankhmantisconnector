@@ -14,10 +14,17 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         private Dictionary<string, Color> _statusColorMapping;
         private ConnectorSettings _settings;
 
+        private List<org.mantisbt.www.IssueData> _selectedIssues;
+        public IEnumerable<org.mantisbt.www.IssueData> SelectedIssues
+        {
+            get { return _selectedIssues.AsEnumerable(); }
+        }
+
         public IssuesView()
         {
             InitializeComponent();
             colPriority.SortMode = DataGridViewColumnSortMode.Automatic;
+            _selectedIssues = new List<org.mantisbt.www.IssueData>();
         }
 
         private void InitializeStatusColorMapping()
@@ -176,7 +183,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                   filters[0] = filterData;
                   tscbFilter.ComboBox.DataSource = filters;
                   tscbFilter.ComboBox.DisplayMember = "name";
-
+                  
                   mantisConnector.Dispose();
               };
 
@@ -243,6 +250,19 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                 }
                 else
                     System.Media.SystemSounds.Beep.Play();
+            }
+        }
+
+        private void dgvIssues_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                var row = dgvIssues.Rows[e.RowIndex];
+
+                if ((bool)row.Cells[0].EditedFormattedValue)
+                    _selectedIssues.Add(((org.mantisbt.www.IssueData)row.Tag));
+                else
+                    _selectedIssues.Remove(((org.mantisbt.www.IssueData)row.Tag));
             }
         }
 

@@ -1,15 +1,16 @@
-﻿//TODO: Advanced Settings
+﻿//TODO: Search
+//TODO: Closing bugs
+//TODO: Default filter
+//TODO: Advanced Settings
 //TODO: More error handling
-//TODO: Search
-//TODO: Bug message parsing
-//TODO: Associating
 //TODO: Permissions check for closing bugs, adding notes, etc
 //TODO: Adding option to create new bug reports
+//TODO: Make FD plugin
 //TODO: Adding option when closing bugs to open a full form
 //TODO: Make TortoiseSVN plugin
-//TODO: Make FD plugin
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Ankh.ExtensionPoints.IssueTracker;
 using AnkhMantisConnector.IssueTracker.Forms;
@@ -97,25 +98,41 @@ namespace AnkhMantisConnector.IssueTracker
 
         public override void PreCommit(PreCommitArgs args)
         {
-            bool valid = true; // perform issue related pre-commit checks
-            if (valid)
+            if (_control.SelectedIssues.Any())
             {
-                // modify commit message here
-                string originalMessage = args.CommitMessage ?? string.Empty;
-                // get _control.SelectedIssues
-                // modify original message to include issue info in the message
-                args.CommitMessage = originalMessage;
+                var associatedIssues = new System.Text.StringBuilder();
+
+                foreach (var issue in _control.SelectedIssues)
+                {
+                    associatedIssues.Append("#" + issue.id + ", ");
+                }
+
+                associatedIssues.Remove(associatedIssues.Length - 2, 2);
+
+                args.CommitMessage += "\nAffected issues: " + associatedIssues;
             }
-            args.Cancel = valid; // true if "some" pre-commit check fails
+
+            base.PreCommit(args);
         }
 
         public override void PostCommit(PostCommitArgs args)
         {
-            // post-process selected issues after commit is done
-            // i.e. change issue status, add a comment to the issue(s) about commit info etc.
-            long committedRevision = args.Revision;
-            string commitMessage = args.CommitMessage;
-            
+            if (_settings.AddNoteAfterCommit && _control.SelectedIssues.Any())
+            {
+                using (var service = new org.mantisbt.www.MantisConnect(_settings.RepositoryUri.ToString() + _settings.WebServicePath))
+                {
+                    foreach (var issue in _control.SelectedIssues)
+                    {
+                        service.mc_issue_note_add(_settings.UserName, _settings.Password, issue.id,
+                                                  new org.mantisbt.www.IssueNoteData()
+                                                      {
+                                                          text = string.Format(_settings.AssociatedCommitNoteText, args.Revision, args.CommitMessage)
+                                                      });
+                    }
+                }
+
+            }
+
             base.PostCommit(args);
         }
 
@@ -127,7 +144,12 @@ namespace AnkhMantisConnector.IssueTracker
         {
             if (!string.IsNullOrEmpty(issueId))
             {
-                System.Diagnostics.Process.Start(issueId);
+                // Does AnkhSVN not return capturing groups? just the match? check AnkhSVN source.
+                var regEx = new System.Text.RegularExpressions.Regex("\\d+",
+                                                                     System.Text.RegularExpressions.RegexOptions.
+                                                                         Compiled);
+
+                System.Diagnostics.Process.Start(_settings.RepositoryUri.ToString() + "/view.php?id=" + regEx.Match(issueId).Value);
             }
         }
 
