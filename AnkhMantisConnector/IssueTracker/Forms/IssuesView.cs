@@ -79,10 +79,10 @@ namespace AnkhMantisConnector.IssueTracker.Forms
             };
 
             if (filterId == "-1")
-                mantisConnector.mc_project_get_issuesAsync(_settings.UserName, _settings.Password, _settings.ProjectId,
+                mantisConnector.mc_project_get_issuesAsync(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(),
                                                       page.ToString(), _settings.IssuesPerPage.ToString());
             else
-                mantisConnector.mc_filter_get_issuesAsync(_settings.UserName, _settings.Password, _settings.ProjectId,
+                mantisConnector.mc_filter_get_issuesAsync(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(),
                                                           filterId, page.ToString(), _settings.IssuesPerPage.ToString());
         }
 
@@ -189,7 +189,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
             lbCurrentAction.Text = "Getting filters...";
             
-            mantisConnector.mc_filter_getAsync(settings.UserName, settings.Password, settings.ProjectId);
+            mantisConnector.mc_filter_getAsync(settings.UserName, settings.Password, settings.ProjectId.ToString());
         }
 
         public void LoadData2(Uri repositoryUri, IDictionary<string, object> properties)
@@ -198,9 +198,10 @@ namespace AnkhMantisConnector.IssueTracker.Forms
             {
                 // Would prefer to get issue headers and cached versions of the users, priorities, etc.
                 // However, there are documented issues when there are a lot of registered users.
-                var issueHeaders = mantisConnector.mc_project_get_issue_headers(_settings.UserName, _settings.Password, _settings.ProjectId, "1", "100");
-                var filters = mantisConnector.mc_filter_get(_settings.UserName, _settings.Password, _settings.ProjectId);
-                var users = mantisConnector.mc_project_get_users(_settings.UserName, _settings.Password, _settings.ProjectId, "10").ToDictionary(x => x.id, x => x);
+                var issueHeaders = mantisConnector.mc_project_get_issue_headers(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(), "1", "100");
+                var filters = mantisConnector.mc_filter_get(_settings.UserName, _settings.Password, _settings.ProjectId.ToString());
+                var users = mantisConnector.mc_project_get_users(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(), "10").
+                    ToDictionary(x => x.id, x => x);
                 /*                lvIssues.BeginUpdate();
                                 for (int i = 0, count = issueHeaders.Length; i < count; i++)
                                 {

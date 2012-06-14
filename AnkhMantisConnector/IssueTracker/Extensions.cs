@@ -54,7 +54,7 @@ namespace AnkhMantisConnector.IssueTracker
             Object value = null;
 
             if (src.TryGetValue(PROPERTY_PROJECT, out value))
-                retVal.ProjectId = value.ToString();
+                retVal.ProjectId = int.Parse(value.ToString());
 
             if (src.TryGetValue(PROPERTY_LOCALACC, out value))
                 retVal.LocalAccount = bool.Parse(value.ToString());

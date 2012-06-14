@@ -75,7 +75,8 @@
   <ItemGroup>
     <Compile Include="IssueTracker\AnkhConfigurationPage.cs" />
     <Compile Include="IssueTracker\AnkhConnector.cs" />
-    <Compile Include="IssueTracker\AnkhRepository.cs" />
+    <Compile Include="IssueTracker\AnkhRepository.cs">
+    </Compile>
     <Compile Include="IssueTracker\ConnectorSettings.cs" />
     <Compile Include="IssueTracker\ConnectorSettingsManager.cs" />
     <Compile Include="IssueTracker\Extensions.cs" />

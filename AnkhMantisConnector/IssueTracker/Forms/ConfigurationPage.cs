@@ -46,7 +46,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                 _currentSettings.UserName = txtUser.Text.Trim();
                 _currentSettings.Password = txtPassword.Text;
                 if (cbProjects.SelectedItem != null)
-                    _currentSettings.ProjectId = ((org.mantisbt.www.ProjectData)cbProjects.SelectedItem).id;
+                    _currentSettings.ProjectId = int.Parse(((org.mantisbt.www.ProjectData)cbProjects.SelectedItem).id);
             }
         }
 
