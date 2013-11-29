@@ -43,8 +43,6 @@ namespace AnkhMantisConnector.IssueTracker.Forms
             {
                 // TODO: TryCreate and validation
                 _currentSettings.RepositoryUri = new Uri(txtServerUrl.Text);
-                _currentSettings.UserName = txtUser.Text.Trim();
-                _currentSettings.Password = txtPassword.Text;
                 if (cbProjects.SelectedItem != null)
                     _currentSettings.ProjectId = int.Parse(((org.mantisbt.www.ProjectData)cbProjects.SelectedItem).id);
             }
@@ -56,9 +54,6 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         private void SelectSettings()
         {
             txtServerUrl.Text = _currentSettings.RepositoryUri == null ? string.Empty : _currentSettings.RepositoryUri.ToString();
-            txtUser.Text = _currentSettings.UserName;
-            txtPassword.Text = _currentSettings.Password;
-
             pgAdvancedSettings.SelectedObject = _currentSettings;
         }
 
@@ -68,26 +63,40 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
             using (var mantisConnect = new org.mantisbt.www.MantisConnect(txtServerUrl.Text + _currentSettings.WebServicePath))
             {
-                ConfigPageEventArgs args = new ConfigPageEventArgs();
-                try
-                {
-                    var projects = mantisConnect.mc_projects_get_user_accessible(txtUser.Text, txtPassword.Text);
+                    ConfigPageEventArgs args = new ConfigPageEventArgs();
+                    try
+                    {
+                        var cred = mantisConnect.GetUserCredential();
+                        if (cred != null)
+                        {
+                            var projects = mantisConnect.mc_projects_get_user_accessible(cred.UserName, cred.Password);
 
-                    cbProjects.DataSource = projects;
-                    cbProjects.DisplayMember = "name";
-                    args.IsComplete = true;
-                }
-                catch (Exception ex)
-                {
-                    args.IsComplete = false;
-                    args.Exception = ex;
-                    MessageBox.Show("Could not get the list of projects: " + ex.Message, "Attention",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                if (OnPageEvent != null)
-                {
-                    OnPageEvent(this, args);
-                }
+                            cbProjects.DataSource = projects;
+                            cbProjects.DisplayMember = "name";
+                            foreach (var project in projects)
+                            {
+                                if (int.Parse(project.id) == _currentSettings.ProjectId)
+                                {
+                                    cbProjects.SelectedItem = project;
+                                    break;
+                                }
+                            }
+                            args.IsComplete = true;
+                            mantisConnect.ConfirmUserCredential(true);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        mantisConnect.ConfirmUserCredential(false);
+                        args.IsComplete = false;
+                        args.Exception = ex;
+                        MessageBox.Show("Could not get the list of projects: " + ex.Message, "Attention",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    if (OnPageEvent != null)
+                    {
+                        OnPageEvent(this, args);
+                    }
             }
 
             Cursor.Current = Cursors.Default;

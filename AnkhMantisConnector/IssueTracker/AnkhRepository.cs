@@ -117,21 +117,24 @@ namespace AnkhMantisConnector.IssueTracker
 
         public override void PostCommit(PostCommitArgs args)
         {
-            if (_settings.AddNoteAfterCommit && _control.SelectedIssues.Any())
-            {
-                using (var service = new org.mantisbt.www.MantisConnect(_settings.RepositoryUri.ToString() + _settings.WebServicePath))
-                {
-                    foreach (var issue in _control.SelectedIssues)
-                    {
-                        service.mc_issue_note_add(_settings.UserName, _settings.Password, issue.id,
-                                                  new org.mantisbt.www.IssueNoteData()
-                                                      {
-                                                          text = string.Format(_settings.AssociatedCommitNoteText, args.Revision, args.CommitMessage)
-                                                      });
-                    }
-                }
+            // We will not post a message to a mantis.
+            //if (_settings.AddNoteAfterCommit && _control.SelectedIssues.Any())
+            //{
+            //    using (var service = new org.mantisbt.www.MantisConnect(_settings.RepositoryUri.ToString() + _settings.WebServicePath))
+            //    {
+            //        foreach (var issue in _control.SelectedIssues)
+            //        {
+            //            service.mc_issue_note_add(_settings.UserName, _settings.Password, issue.id,
+            //                                      new org.mantisbt.www.IssueNoteData()
+            //                                          {
+            //                                              text = string.Format(_settings.AssociatedCommitNoteText, args.Revision, args.CommitMessage)
+            //                                          });
+            //        }
+            //    }
 
-            }
+            //}
+
+            // TODO: Build request
 
             base.PostCommit(args);
         }

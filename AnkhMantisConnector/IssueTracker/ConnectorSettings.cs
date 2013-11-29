@@ -26,23 +26,10 @@ namespace AnkhMantisConnector.IssueTracker
         [Category("Connection")]
         public Uri RepositoryUri { get; set; }
 
-        [Description("User name used to connect to the tracker")]
-        [Category("Connection")]
-        public string UserName { get; set; }
-
-        [Description("Password used to connect to the tracker")]
-        [Category("Connection")]
-        public string Password { get; set; }
-
         [DefaultValue(50)]
         [Description("Number of issues to fetch per page")]
         [Category("Issues View")]
         public int IssuesPerPage { get; set; }
-
-        [DefaultValue(false)]
-        [Description("Determines whether the user and password data should be stored in a local file instead of using a SVN property")]
-        [Category("Connection")]
-        public bool LocalAccount { get; set; }
 
         [DefaultValue(DefaultWebServicePath)]
         [Description("The relative path to the SOAP service")]
