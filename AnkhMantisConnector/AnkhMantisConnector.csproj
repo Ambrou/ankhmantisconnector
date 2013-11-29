@@ -230,6 +230,17 @@
     <None Include="Resources\priority_none.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IssueTracker\org.mantis.www.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\busy_loader.gif" />
   </ItemGroup>
   <PropertyGroup>
