@@ -8,7 +8,46 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 {
     internal partial class IssuesView : UserControl
     {
+        class IssueData : org.mantisbt.www.IssueData
+        {
+            public IssueData(org.mantisbt.www.IssueData data)
+            {
+                foreach (var prop in data.GetType().GetProperties())
+                {
+                    prop.SetValue(this, prop.GetValue(data, null), null);
+                }
+            }
 
+            public Image priorityImage
+            {
+                get
+                {
+                    switch (priority.id)
+                    {
+                        case "10":
+                            return Properties.Resources.priority_none;
+
+                        case "20":
+                            return Properties.Resources.priority_low_1;
+
+                        case "30":
+                            return Properties.Resources.priority_normal;
+
+                        case "40":
+                            return Properties.Resources.priority_1;
+
+                        case "50":
+                            return Properties.Resources.priority_2;
+
+                        case "60":
+                            return Properties.Resources.priority_3;
+
+                        default:
+                            return Properties.Resources.priority_none;
+                    }
+                }
+            }
+        }
         private int _currentPage = 1;
         private string _currentFilter;
         private Dictionary<string, Color> _statusColorMapping;
@@ -23,7 +62,8 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         public IssuesView()
         {
             InitializeComponent();
-            colPriority.SortMode = DataGridViewColumnSortMode.Automatic;
+
+            priorityDataGridViewImageColumn.SortMode = DataGridViewColumnSortMode.Automatic;
             _selectedIssues = new List<org.mantisbt.www.IssueData>();
         }
 
@@ -100,23 +140,25 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
         private void DisplayIssues(int page, org.mantisbt.www.IssueData[] issues, Exception error, bool cancelled)
         {
-            dgvIssues.SuspendDrawing();
-            dgvIssues.Rows.Clear();
-            foreach (var issue in issues)
-            {
-                int newIndex = dgvIssues.Rows.Add(false, GetPriorityImage(issue.priority.id), issue.id, issue.category,
-                    issue.severity.name, issue.status.name + (issue.handler != null ? " (" + issue.handler.name + ")" : string.Empty),
-                    issue.summary, issue.reporter.name, issue.last_updated.ToString());
+            issueDataBindingSource.DataSource = (from issue in issues select new IssueData(issue)); ;
 
-                dgvIssues.Rows[newIndex].DefaultCellStyle.BackColor = GetStatusColor(issue.status.id);
-                dgvIssues.Rows[newIndex].Tag = issue;
-            }
+            //dgvIssues.SuspendDrawing();
+            //dgvIssues.Rows.Clear();
+            //foreach (var issue in issues)
+            //{
+            //    int newIndex = dgvIssues.Rows.Add(false, GetPriorityImage(issue.priority.id), issue.id, issue.category,
+            //        issue.severity.name, issue.status.name + (issue.handler != null ? " (" + issue.handler.name + ")" : string.Empty),
+            //        issue.summary, issue.reporter.name, issue.last_updated.ToString());
+
+            //    dgvIssues.Rows[newIndex].DefaultCellStyle.BackColor = GetStatusColor(issue.status.id);
+            //    dgvIssues.Rows[newIndex].Tag = issue;
+            //}
 
             dgvIssues.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             pnlBusyIndicator.Visible = false;
             dgvIssues.Visible = true;
-            dgvIssues.ResumeDrawing();
+            //dgvIssues.ResumeDrawing();
 
             _currentPage = page;
             tstxtPage.Text = _currentPage.ToString();
@@ -191,6 +233,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                   }
                   else
                   {
+                      mantisConnector.ConfirmUserCredential(true);
                       var filters = e.Result;
                       var filterData = new org.mantisbt.www.FilterData() { name = "[No filter]", id = "-1" };
                       Array.Reverse(filters);
@@ -199,7 +242,6 @@ namespace AnkhMantisConnector.IssueTracker.Forms
                       filters[0] = filterData;
                       tscbFilter.ComboBox.DataSource = filters;
                       tscbFilter.ComboBox.DisplayMember = "name";
-                      mantisConnector.ConfirmUserCredential(true);
                   }
 
                   mantisConnector.Dispose();
@@ -265,7 +307,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
         private void dgvIssues_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
-            if (e.Column == colPriority)
+            if (e.Column == priorityDataGridViewImageColumn)
             {
                 var issueA = ((org.mantisbt.www.IssueData)dgvIssues.Rows[e.RowIndex1].Tag);
                 var issueB = ((org.mantisbt.www.IssueData)dgvIssues.Rows[e.RowIndex2].Tag);

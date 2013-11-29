@@ -69,4 +69,20 @@ namespace AnkhMantisConnector.org.mantisbt.www
             return cred;
         }
     }
+
+    public partial class ObjectRef
+    {
+        public override string ToString()
+        {
+            return this.name;
+        }
+    }
+
+    public partial class AccountData
+    {
+        public override string ToString()
+        {
+            return this.name;
+        }
+    }
 }
