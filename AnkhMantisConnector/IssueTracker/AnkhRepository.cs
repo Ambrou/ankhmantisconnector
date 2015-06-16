@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Ankh.ExtensionPoints.IssueTracker;
-using Ankh.Sample.Extension.IssueTracker.Forms;
+using AnkhMantisConnector.IssueTracker.Forms;
 
-namespace Ankh.Sample.Extension.IssueTracker
+namespace AnkhMantisConnector.IssueTracker
 {
     /// <summary>
     /// Represents an Issue Repository

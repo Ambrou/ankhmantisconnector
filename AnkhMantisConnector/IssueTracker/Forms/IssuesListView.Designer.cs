@@ -1,4 +1,4 @@
-﻿namespace Ankh.Sample.Extension.IssueTracker.Forms
+﻿namespace AnkhMantisConnector.IssueTracker.Forms
 {
 	partial class IssuesListView
 	{

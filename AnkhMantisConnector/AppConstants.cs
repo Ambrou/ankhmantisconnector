@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ankh.Sample.Extension
+namespace AnkhMantisConnector
 {
     static class AppConstants
 	{

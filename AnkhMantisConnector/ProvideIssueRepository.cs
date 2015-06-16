@@ -2,7 +2,7 @@
 using System.Globalization;
 using Microsoft.VisualStudio.Shell;
 
-namespace Ankh.Sample.Extension
+namespace AnkhMantisConnector
 {
 	/// <summary>
 	/// This attribute registers the package as Issue Repository Connector.
