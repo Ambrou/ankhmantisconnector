@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Ankh.ExtensionPoints.IssueTracker;
 
-namespace Ankh.Sample.Extension.IssueTracker.Forms
+namespace AnkhMantisConnector.IssueTracker.Forms
 {
     /// <summary>
     /// UI for Issue repository configuration

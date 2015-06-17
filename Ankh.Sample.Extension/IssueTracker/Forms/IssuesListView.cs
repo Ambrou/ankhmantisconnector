@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Ankh.Sample.Extension.IssueTracker.Forms
+namespace AnkhMantisConnector.IssueTracker.Forms
 {
 	public partial class IssuesListView : UserControl
 	{

@@ -1,6 +1,6 @@
 ﻿using Ankh.ExtensionPoints.IssueTracker;
 
-namespace Ankh.Sample.Extension.IssueTracker
+namespace AnkhMantisConnector.IssueTracker
 {
     /// <summary>
     /// Sample Issue Repository connector for AnkhSVN
