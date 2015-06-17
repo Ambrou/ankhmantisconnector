@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ankh.Sample.Extension", "Ankh.Sample.Extension\Ankh.Sample.Extension.csproj", "{EBFE69A7-8757-450F-955F-84C8807CCBDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnkhMantisConnector", "Ankh.Sample.Extension\AnkhMantisConnector.csproj", "{EBFE69A7-8757-450F-955F-84C8807CCBDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

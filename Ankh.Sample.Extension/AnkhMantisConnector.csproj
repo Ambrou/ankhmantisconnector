@@ -6,8 +6,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ankh.Sample.Extension</RootNamespace>
-    <AssemblyName>Ankh.Sample.Extension</AssemblyName>
+    <RootNamespace>AnkhMantisConnector</RootNamespace>
+    <AssemblyName>AnkhMantisConnector</AssemblyName>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
