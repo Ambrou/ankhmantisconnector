@@ -69,6 +69,7 @@ namespace Ankh.Sample.Extension.IssueTracker
             get { return RepositoryId ?? (RepositoryUri == null ? string.Empty : RepositoryUri.ToString()); }
         }
 
+        [Obsolete("Please return a (compiled) regex from IssueIdRegex")]
         public override string IssueIdPattern
         {
             get
