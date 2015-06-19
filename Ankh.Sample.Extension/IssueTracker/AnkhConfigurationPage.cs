@@ -17,7 +17,17 @@ namespace Ankh.Sample.Extension.IssueTracker
 
         public override IWin32Window Window
         {
-            get { return _control ?? (_control = new ConfigurationPage()); }
+
+            get
+            {
+                if (_control == null)
+                {
+                    ConfigurationPage control = new ConfigurationPage();
+                    control.OnPageEvent += new EventHandler<ConfigPageEventArgs>(control_OnPageEvent);
+                    _control = control;
+                }
+                return _control;
+            }
         }
 
         /// <summary>
