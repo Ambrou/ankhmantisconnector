@@ -46,9 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ankh.ExtensionPoints, Version=2.5.12582.28, Culture=neutral, PublicKeyToken=068e4b3e6ce74d73, processorArchitecture=MSIL">
+    <Reference Include="Ankh.ExtensionPoints, Version=2.3.10822.1209, Culture=neutral, PublicKeyToken=068e4b3e6ce74d73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files\AnkhSVN 2\Ankh.ExtensionPoints.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\AnkhSVN 2\Ankh.ExtensionPoints.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.VisualStudio.Shell.9.0, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -59,10 +59,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -80,6 +78,7 @@
     <Compile Include="IssueTracker\AnkhRepository.cs">
     </Compile>
     <Compile Include="IssueTracker\ConnectorSettings.cs" />
+    <Compile Include="IssueTracker\ConnectorSettingsManager.cs" />
     <Compile Include="IssueTracker\Extensions.cs" />
     <Compile Include="IssueTracker\Forms\ConfigurationPage.cs">
       <SubType>UserControl</SubType>
@@ -231,27 +230,7 @@
     <None Include="Resources\priority_none.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IssueTracker\org.mantis.www.cs" />
-    <Compile Include="Ookii.Dialogs.CredentialDialogs.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <None Include="app.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Resources\busy_loader.gif" />
-    <None Include="Web References\org.mantisbt.www\HistoryData.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\org.mantisbt.www\UserData.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <!--

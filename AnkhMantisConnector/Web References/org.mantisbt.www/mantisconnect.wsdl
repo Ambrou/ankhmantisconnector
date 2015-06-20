@@ -4,13 +4,6 @@
     <xsd:schema targetNamespace="http://futureware.biz/mantisconnect">
       <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
       <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
-      <xsd:complexType name="IntegerArray">
-        <xsd:complexContent mixed="false">
-          <xsd:restriction base="SOAP-ENC:Array">
-            <xsd:attribute wsdl:arrayType="xsd:integer[]" ref="SOAP-ENC:arrayType" />
-          </xsd:restriction>
-        </xsd:complexContent>
-      </xsd:complexType>
       <xsd:complexType name="StringArray">
         <xsd:complexContent mixed="false">
           <xsd:restriction base="SOAP-ENC:Array">
@@ -37,13 +30,6 @@
           <xsd:element minOccurs="0" name="name" type="xsd:string" />
           <xsd:element minOccurs="0" name="real_name" type="xsd:string" />
           <xsd:element minOccurs="0" name="email" type="xsd:string" />
-        </xsd:all>
-      </xsd:complexType>
-      <xsd:complexType name="UserData">
-        <xsd:all>
-          <xsd:element minOccurs="0" name="account_data" type="tns:AccountData" />
-          <xsd:element minOccurs="0" name="access_level" type="xsd:integer" />
-          <xsd:element minOccurs="0" name="timezone" type="xsd:string" />
         </xsd:all>
       </xsd:complexType>
       <xsd:complexType name="AccountDataArray">
@@ -171,24 +157,6 @@
           </xsd:restriction>
         </xsd:complexContent>
       </xsd:complexType>
-      <xsd:complexType name="HistoryData">
-        <xsd:all>
-          <xsd:element name="date" type="xsd:integer" />
-          <xsd:element name="userid" type="xsd:integer" />
-          <xsd:element name="username" type="xsd:string" />
-          <xsd:element name="field" type="xsd:string" />
-          <xsd:element name="type" type="xsd:integer" />
-          <xsd:element name="old_value" type="xsd:string" />
-          <xsd:element name="new_value" type="xsd:string" />
-        </xsd:all>
-      </xsd:complexType>
-      <xsd:complexType name="HistoryDataArray">
-        <xsd:complexContent mixed="false">
-          <xsd:restriction base="SOAP-ENC:Array">
-            <xsd:attribute wsdl:arrayType="tns:HistoryData[]" ref="SOAP-ENC:arrayType" />
-          </xsd:restriction>
-        </xsd:complexContent>
-      </xsd:complexType>
       <xsd:complexType name="IssueHeaderData">
         <xsd:all>
           <xsd:element name="id" type="xsd:integer" />
@@ -264,41 +232,6 @@
           <xsd:element minOccurs="0" name="url" type="xsd:string" />
         </xsd:all>
       </xsd:complexType>
-      <xsd:complexType name="FilterSearchData">
-        <xsd:all>
-          <xsd:element minOccurs="0" name="project_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="search" type="xsd:string" />
-          <xsd:element minOccurs="0" name="category" type="tns:StringArray" />
-          <xsd:element minOccurs="0" name="severity_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="status_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="priority_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="reporter_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="handler_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="note_user_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="resolution_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="product_version" type="tns:StringArray" />
-          <xsd:element minOccurs="0" name="user_monitor_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="hide_status_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="sort" type="xsd:string" />
-          <xsd:element minOccurs="0" name="sort_direction" type="xsd:string" />
-          <xsd:element minOccurs="0" name="sticky" type="xsd:boolean" />
-          <xsd:element minOccurs="0" name="view_state_id" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="fixed_in_version" type="tns:StringArray" />
-          <xsd:element minOccurs="0" name="target_version" type="tns:StringArray" />
-          <xsd:element minOccurs="0" name="platform" type="tns:StringArray" />
-          <xsd:element minOccurs="0" name="os" type="tns:StringArray" />
-          <xsd:element minOccurs="0" name="os_build" type="tns:StringArray" />
-          <xsd:element minOccurs="0" name="start_day" type="xsd:integer" />
-          <xsd:element minOccurs="0" name="start_month" type="xsd:integer" />
-          <xsd:element minOccurs="0" name="start_year" type="xsd:integer" />
-          <xsd:element minOccurs="0" name="end_day" type="xsd:integer" />
-          <xsd:element minOccurs="0" name="end_month" type="xsd:integer" />
-          <xsd:element minOccurs="0" name="end_year" type="xsd:integer" />
-          <xsd:element minOccurs="0" name="tag_string" type="tns:StringArray" />
-          <xsd:element minOccurs="0" name="tag_select" type="tns:IntegerArray" />
-          <xsd:element minOccurs="0" name="custom_fields" type="tns:FilterCustomFieldArray" />
-        </xsd:all>
-      </xsd:complexType>
       <xsd:complexType name="FilterDataArray">
         <xsd:complexContent mixed="false">
           <xsd:restriction base="SOAP-ENC:Array">
@@ -327,19 +260,6 @@
           <xsd:element minOccurs="0" name="require_resolved" type="xsd:boolean" />
           <xsd:element minOccurs="0" name="require_closed" type="xsd:boolean" />
         </xsd:all>
-      </xsd:complexType>
-      <xsd:complexType name="FilterCustomField">
-        <xsd:all>
-          <xsd:element minOccurs="1" name="field" type="tns:ObjectRef" />
-          <xsd:element minOccurs="1" name="value" type="tns:StringArray" />
-        </xsd:all>
-      </xsd:complexType>
-      <xsd:complexType name="FilterCustomFieldArray">
-        <xsd:complexContent mixed="false">
-          <xsd:restriction base="SOAP-ENC:Array">
-            <xsd:attribute wsdl:arrayType="tns:FilterCustomField[]" ref="SOAP-ENC:arrayType" />
-          </xsd:restriction>
-        </xsd:complexContent>
       </xsd:complexType>
       <xsd:complexType name="CustomFieldDefinitionDataArray">
         <xsd:complexContent mixed="false">
@@ -425,13 +345,6 @@
   <wsdl:message name="mc_versionRequest" />
   <wsdl:message name="mc_versionResponse">
     <wsdl:part name="return" type="xsd:string" />
-  </wsdl:message>
-  <wsdl:message name="mc_loginRequest">
-    <wsdl:part name="username" type="xsd:string" />
-    <wsdl:part name="password" type="xsd:string" />
-  </wsdl:message>
-  <wsdl:message name="mc_loginResponse">
-    <wsdl:part name="return" type="tns:UserData" />
   </wsdl:message>
   <wsdl:message name="mc_enum_statusRequest">
     <wsdl:part name="username" type="xsd:string" />
@@ -540,30 +453,6 @@
   </wsdl:message>
   <wsdl:message name="mc_issue_getResponse">
     <wsdl:part name="return" type="tns:IssueData" />
-  </wsdl:message>
-  <wsdl:message name="mc_issues_getRequest">
-    <wsdl:part name="username" type="xsd:string" />
-    <wsdl:part name="password" type="xsd:string" />
-    <wsdl:part name="issue_ids" type="tns:IntegerArray" />
-  </wsdl:message>
-  <wsdl:message name="mc_issues_getResponse">
-    <wsdl:part name="return" type="tns:IssueDataArray" />
-  </wsdl:message>
-  <wsdl:message name="mc_issues_get_headerRequest">
-    <wsdl:part name="username" type="xsd:string" />
-    <wsdl:part name="password" type="xsd:string" />
-    <wsdl:part name="issue_ids" type="tns:IntegerArray" />
-  </wsdl:message>
-  <wsdl:message name="mc_issues_get_headerResponse">
-    <wsdl:part name="return" type="tns:IssueHeaderDataArray" />
-  </wsdl:message>
-  <wsdl:message name="mc_issue_get_historyRequest">
-    <wsdl:part name="username" type="xsd:string" />
-    <wsdl:part name="password" type="xsd:string" />
-    <wsdl:part name="issue_id" type="xsd:integer" />
-  </wsdl:message>
-  <wsdl:message name="mc_issue_get_historyResponse">
-    <wsdl:part name="return" type="tns:HistoryDataArray" />
   </wsdl:message>
   <wsdl:message name="mc_issue_get_biggest_idRequest">
     <wsdl:part name="username" type="xsd:string" />
@@ -717,18 +606,6 @@
   </wsdl:message>
   <wsdl:message name="mc_project_get_id_from_nameResponse">
     <wsdl:part name="return" type="xsd:integer" />
-  </wsdl:message>
-  <wsdl:message name="mc_project_get_issues_for_userRequest">
-    <wsdl:part name="username" type="xsd:string" />
-    <wsdl:part name="password" type="xsd:string" />
-    <wsdl:part name="project_id" type="xsd:integer" />
-    <wsdl:part name="filter_type" type="xsd:string" />
-    <wsdl:part name="target_user" type="tns:AccountData" />
-    <wsdl:part name="page_number" type="xsd:integer" />
-    <wsdl:part name="per_page" type="xsd:integer" />
-  </wsdl:message>
-  <wsdl:message name="mc_project_get_issues_for_userResponse">
-    <wsdl:part name="return" type="tns:IssueDataArray" />
   </wsdl:message>
   <wsdl:message name="mc_project_get_issuesRequest">
     <wsdl:part name="username" type="xsd:string" />
@@ -935,36 +812,6 @@
   <wsdl:message name="mc_filter_get_issue_headersResponse">
     <wsdl:part name="return" type="tns:IssueHeaderDataArray" />
   </wsdl:message>
-  <wsdl:message name="mc_filter_search_issue_headersRequest">
-    <wsdl:part name="username" type="xsd:string" />
-    <wsdl:part name="password" type="xsd:string" />
-    <wsdl:part name="filter" type="tns:FilterSearchData" />
-    <wsdl:part name="page_number" type="xsd:integer" />
-    <wsdl:part name="per_page" type="xsd:integer" />
-  </wsdl:message>
-  <wsdl:message name="mc_filter_search_issue_headersResponse">
-    <wsdl:part name="return" type="tns:IssueHeaderDataArray" />
-  </wsdl:message>
-  <wsdl:message name="mc_filter_search_issuesRequest">
-    <wsdl:part name="username" type="xsd:string" />
-    <wsdl:part name="password" type="xsd:string" />
-    <wsdl:part name="filter" type="tns:FilterSearchData" />
-    <wsdl:part name="page_number" type="xsd:integer" />
-    <wsdl:part name="per_page" type="xsd:integer" />
-  </wsdl:message>
-  <wsdl:message name="mc_filter_search_issuesResponse">
-    <wsdl:part name="return" type="tns:IssueDataArray" />
-  </wsdl:message>
-  <wsdl:message name="mc_filter_search_issue_idsRequest">
-    <wsdl:part name="username" type="xsd:string" />
-    <wsdl:part name="password" type="xsd:string" />
-    <wsdl:part name="filter" type="tns:FilterSearchData" />
-    <wsdl:part name="page_number" type="xsd:integer" />
-    <wsdl:part name="per_page" type="xsd:integer" />
-  </wsdl:message>
-  <wsdl:message name="mc_filter_search_issue_idsResponse">
-    <wsdl:part name="return" type="tns:IntegerArray" />
-  </wsdl:message>
   <wsdl:message name="mc_config_get_stringRequest">
     <wsdl:part name="username" type="xsd:string" />
     <wsdl:part name="password" type="xsd:string" />
@@ -1030,11 +877,6 @@
     <wsdl:operation name="mc_version">
       <wsdl:input message="tns:mc_versionRequest" />
       <wsdl:output message="tns:mc_versionResponse" />
-    </wsdl:operation>
-    <wsdl:operation name="mc_login">
-      <documentation>Log the user in and get their information.</documentation>
-      <wsdl:input message="tns:mc_loginRequest" />
-      <wsdl:output message="tns:mc_loginResponse" />
     </wsdl:operation>
     <wsdl:operation name="mc_enum_status">
       <documentation>Get the enumeration for statuses.</documentation>
@@ -1110,21 +952,6 @@
       <documentation>Get the issue with the specified id.</documentation>
       <wsdl:input message="tns:mc_issue_getRequest" />
       <wsdl:output message="tns:mc_issue_getResponse" />
-    </wsdl:operation>
-    <wsdl:operation name="mc_issues_get">
-      <documentation>Get all issues matching the ids.</documentation>
-      <wsdl:input message="tns:mc_issues_getRequest" />
-      <wsdl:output message="tns:mc_issues_getResponse" />
-    </wsdl:operation>
-    <wsdl:operation name="mc_issues_get_header">
-      <documentation>Get all issues header matching the ids.</documentation>
-      <wsdl:input message="tns:mc_issues_get_headerRequest" />
-      <wsdl:output message="tns:mc_issues_get_headerResponse" />
-    </wsdl:operation>
-    <wsdl:operation name="mc_issue_get_history">
-      <documentation>Get the history of the issue with the specified id.</documentation>
-      <wsdl:input message="tns:mc_issue_get_historyRequest" />
-      <wsdl:output message="tns:mc_issue_get_historyResponse" />
     </wsdl:operation>
     <wsdl:operation name="mc_issue_get_biggest_id">
       <documentation>Get the latest submitted issue in the specified project.</documentation>
@@ -1216,18 +1043,13 @@
       <wsdl:input message="tns:mc_project_get_id_from_nameRequest" />
       <wsdl:output message="tns:mc_project_get_id_from_nameResponse" />
     </wsdl:operation>
-    <wsdl:operation name="mc_project_get_issues_for_user">
-      <documentation>Get the issues filtered by the specified user within the specified project. Supported types include "assigned", "monitored", "reported".  Pass "-1" for the per_page parameter to get all issues.  Use project id "0" for all projects.</documentation>
-      <wsdl:input message="tns:mc_project_get_issues_for_userRequest" />
-      <wsdl:output message="tns:mc_project_get_issues_for_userResponse" />
-    </wsdl:operation>
     <wsdl:operation name="mc_project_get_issues">
-      <documentation>Get the issues that match the specified project id and paging details. Pass "-1" for the per_page parameter to get all issues.</documentation>
+      <documentation>Get the issues that match the specified project id and paging details.</documentation>
       <wsdl:input message="tns:mc_project_get_issuesRequest" />
       <wsdl:output message="tns:mc_project_get_issuesResponse" />
     </wsdl:operation>
     <wsdl:operation name="mc_project_get_issue_headers">
-      <documentation>Get the issue headers that match the specified project id and paging details. Pass "-1" for the per_page parameter to get all issues.</documentation>
+      <documentation>Get the issue headers that match the specified project id and paging details.</documentation>
       <wsdl:input message="tns:mc_project_get_issue_headersRequest" />
       <wsdl:output message="tns:mc_project_get_issue_headersResponse" />
     </wsdl:operation>
@@ -1327,29 +1149,14 @@
       <wsdl:output message="tns:mc_filter_getResponse" />
     </wsdl:operation>
     <wsdl:operation name="mc_filter_get_issues">
-      <documentation>Get the issues that match the specified filter and paging details. Pass "-1" for the per_page parameter to get all issues.</documentation>
+      <documentation>Get the issues that match the specified filter and paging details.</documentation>
       <wsdl:input message="tns:mc_filter_get_issuesRequest" />
       <wsdl:output message="tns:mc_filter_get_issuesResponse" />
     </wsdl:operation>
     <wsdl:operation name="mc_filter_get_issue_headers">
-      <documentation>Get the issue headers that match the specified filter and paging details.  Pass "-1" for the per_page parameter to get all issues.</documentation>
+      <documentation>Get the issue headers that match the specified filter and paging details.</documentation>
       <wsdl:input message="tns:mc_filter_get_issue_headersRequest" />
       <wsdl:output message="tns:mc_filter_get_issue_headersResponse" />
-    </wsdl:operation>
-    <wsdl:operation name="mc_filter_search_issue_headers">
-      <documentation>Get the issue headers that match the custom filter and paging details.</documentation>
-      <wsdl:input message="tns:mc_filter_search_issue_headersRequest" />
-      <wsdl:output message="tns:mc_filter_search_issue_headersResponse" />
-    </wsdl:operation>
-    <wsdl:operation name="mc_filter_search_issues">
-      <documentation>Get the issues that match the custom filter and paging details.</documentation>
-      <wsdl:input message="tns:mc_filter_search_issuesRequest" />
-      <wsdl:output message="tns:mc_filter_search_issuesResponse" />
-    </wsdl:operation>
-    <wsdl:operation name="mc_filter_search_issue_ids">
-      <documentation>Get the issue ids that match the custom filter and paging details.</documentation>
-      <wsdl:input message="tns:mc_filter_search_issue_idsRequest" />
-      <wsdl:output message="tns:mc_filter_search_issue_idsResponse" />
     </wsdl:operation>
     <wsdl:operation name="mc_config_get_string">
       <documentation>Get the value for the specified configuration variable.</documentation>
@@ -1391,15 +1198,6 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
     <wsdl:operation name="mc_version">
       <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_version" style="rpc" />
-      <wsdl:input>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="mc_login">
-      <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_login" style="rpc" />
       <wsdl:input>
         <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>
@@ -1535,33 +1333,6 @@
     </wsdl:operation>
     <wsdl:operation name="mc_issue_get">
       <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_issue_get" style="rpc" />
-      <wsdl:input>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="mc_issues_get">
-      <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_issues_get" style="rpc" />
-      <wsdl:input>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="mc_issues_get_header">
-      <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_issues_get_header" style="rpc" />
-      <wsdl:input>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="mc_issue_get_history">
-      <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_issue_get_history" style="rpc" />
       <wsdl:input>
         <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>
@@ -1724,15 +1495,6 @@
     </wsdl:operation>
     <wsdl:operation name="mc_project_get_id_from_name">
       <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_project_get_id_from_name" style="rpc" />
-      <wsdl:input>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="mc_project_get_issues_for_user">
-      <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_project_get_issues_for_user" style="rpc" />
       <wsdl:input>
         <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>
@@ -1940,33 +1702,6 @@
     </wsdl:operation>
     <wsdl:operation name="mc_filter_get_issue_headers">
       <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_filter_get_issue_headers" style="rpc" />
-      <wsdl:input>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="mc_filter_search_issue_headers">
-      <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_filter_search_issue_headers" style="rpc" />
-      <wsdl:input>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="mc_filter_search_issues">
-      <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_filter_search_issues" style="rpc" />
-      <wsdl:input>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="mc_filter_search_issue_ids">
-      <soap:operation soapAction="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php/mc_filter_search_issue_ids" style="rpc" />
       <wsdl:input>
         <soap:body use="encoded" namespace="http://futureware.biz/mantisconnect" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>

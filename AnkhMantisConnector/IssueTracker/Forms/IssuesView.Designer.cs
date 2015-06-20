@@ -28,11 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssuesView));
             this.dgvIssues = new System.Windows.Forms.DataGridView();
-            this.issueDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.colAssociation = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colPriority = new System.Windows.Forms.DataGridViewImageColumn();
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSeverity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colReporter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLastUpdated = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
@@ -54,18 +64,7 @@
             this.pnlBusyIndicator = new System.Windows.Forms.Panel();
             this.lbCurrentAction = new System.Windows.Forms.Label();
             this.lbLoading = new System.Windows.Forms.Label();
-            this.colAssociation = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.priorityDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastupdatedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.severityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reporterDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.handlerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resolutionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIssues)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.issueDataBindingSource)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBusyLoader)).BeginInit();
             this.pnlBusyIndicator.SuspendLayout();
@@ -76,7 +75,6 @@
             this.dgvIssues.AllowUserToAddRows = false;
             this.dgvIssues.AllowUserToDeleteRows = false;
             this.dgvIssues.AllowUserToResizeRows = false;
-            this.dgvIssues.AutoGenerateColumns = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -88,16 +86,14 @@
             this.dgvIssues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvIssues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colAssociation,
-            this.priorityDataGridViewImageColumn,
-            this.idDataGridViewTextBoxColumn,
-            this.lastupdatedDataGridViewTextBoxColumn,
-            this.categoryDataGridViewTextBoxColumn,
-            this.severityDataGridViewTextBoxColumn,
-            this.statusDataGridViewTextBoxColumn,
-            this.reporterDataGridViewTextBoxColumn,
-            this.handlerDataGridViewTextBoxColumn,
-            this.resolutionDataGridViewTextBoxColumn});
-            this.dgvIssues.DataSource = this.issueDataBindingSource;
+            this.colPriority,
+            this.colId,
+            this.colCategory,
+            this.colSeverity,
+            this.colStatus,
+            this.colSummary,
+            this.colReporter,
+            this.colLastUpdated});
             this.dgvIssues.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvIssues.Location = new System.Drawing.Point(0, 25);
             this.dgvIssues.Name = "dgvIssues";
@@ -109,9 +105,64 @@
             this.dgvIssues.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvIssues_SortCompare);
             this.dgvIssues.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIssues_CellContentClick);
             // 
-            // issueDataBindingSource
+            // colAssociation
             // 
-            this.issueDataBindingSource.DataSource = typeof(AnkhMantisConnector.IssueTracker.Forms.IssuesView.IssueData);
+            this.colAssociation.HeaderText = "";
+            this.colAssociation.Name = "colAssociation";
+            // 
+            // colPriority
+            // 
+            this.colPriority.HeaderText = "P";
+            this.colPriority.Name = "colPriority";
+            this.colPriority.ReadOnly = true;
+            // 
+            // colId
+            // 
+            this.colId.HeaderText = "Id";
+            this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
+            // 
+            // colCategory
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colCategory.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colCategory.HeaderText = "Category";
+            this.colCategory.Name = "colCategory";
+            this.colCategory.ReadOnly = true;
+            // 
+            // colSeverity
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colSeverity.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colSeverity.HeaderText = "Severity";
+            this.colSeverity.Name = "colSeverity";
+            this.colSeverity.ReadOnly = true;
+            // 
+            // colStatus
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colStatus.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            // 
+            // colSummary
+            // 
+            this.colSummary.HeaderText = "Summary";
+            this.colSummary.Name = "colSummary";
+            this.colSummary.ReadOnly = true;
+            // 
+            // colReporter
+            // 
+            this.colReporter.HeaderText = "Reported By";
+            this.colReporter.Name = "colReporter";
+            this.colReporter.ReadOnly = true;
+            // 
+            // colLastUpdated
+            // 
+            this.colLastUpdated.HeaderText = "Last Updated";
+            this.colLastUpdated.Name = "colLastUpdated";
+            this.colLastUpdated.ReadOnly = true;
             // 
             // toolStrip1
             // 
@@ -245,68 +296,6 @@
             this.lbLoading.TabIndex = 10;
             this.lbLoading.Text = "Loading...";
             // 
-            // colAssociation
-            // 
-            this.colAssociation.HeaderText = "";
-            this.colAssociation.Name = "colAssociation";
-            // 
-            // priorityDataGridViewImageColumn
-            // 
-            this.priorityDataGridViewImageColumn.DataPropertyName = "priorityImage";
-            this.priorityDataGridViewImageColumn.HeaderText = "priority";
-            this.priorityDataGridViewImageColumn.Name = "priorityDataGridViewImageColumn";
-            this.priorityDataGridViewImageColumn.ReadOnly = true;
-            this.priorityDataGridViewImageColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.priorityDataGridViewImageColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            // 
-            // lastupdatedDataGridViewTextBoxColumn
-            // 
-            this.lastupdatedDataGridViewTextBoxColumn.DataPropertyName = "last_updated";
-            this.lastupdatedDataGridViewTextBoxColumn.HeaderText = "last_updated";
-            this.lastupdatedDataGridViewTextBoxColumn.Name = "lastupdatedDataGridViewTextBoxColumn";
-            // 
-            // categoryDataGridViewTextBoxColumn
-            // 
-            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "category";
-            this.categoryDataGridViewTextBoxColumn.HeaderText = "category";
-            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
-            // 
-            // severityDataGridViewTextBoxColumn
-            // 
-            this.severityDataGridViewTextBoxColumn.DataPropertyName = "severity";
-            this.severityDataGridViewTextBoxColumn.HeaderText = "severity";
-            this.severityDataGridViewTextBoxColumn.Name = "severityDataGridViewTextBoxColumn";
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            this.statusDataGridViewTextBoxColumn.DataPropertyName = "status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "status";
-            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            // 
-            // reporterDataGridViewTextBoxColumn
-            // 
-            this.reporterDataGridViewTextBoxColumn.DataPropertyName = "reporter";
-            this.reporterDataGridViewTextBoxColumn.HeaderText = "reporter";
-            this.reporterDataGridViewTextBoxColumn.Name = "reporterDataGridViewTextBoxColumn";
-            // 
-            // handlerDataGridViewTextBoxColumn
-            // 
-            this.handlerDataGridViewTextBoxColumn.DataPropertyName = "handler";
-            this.handlerDataGridViewTextBoxColumn.HeaderText = "handler";
-            this.handlerDataGridViewTextBoxColumn.Name = "handlerDataGridViewTextBoxColumn";
-            // 
-            // resolutionDataGridViewTextBoxColumn
-            // 
-            this.resolutionDataGridViewTextBoxColumn.DataPropertyName = "resolution";
-            this.resolutionDataGridViewTextBoxColumn.HeaderText = "resolution";
-            this.resolutionDataGridViewTextBoxColumn.Name = "resolutionDataGridViewTextBoxColumn";
-            // 
             // IssuesView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,7 +306,6 @@
             this.Name = "IssuesView";
             this.Size = new System.Drawing.Size(519, 146);
             ((System.ComponentModel.ISupportInitialize)(this.dgvIssues)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.issueDataBindingSource)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBusyLoader)).EndInit();
@@ -350,18 +338,16 @@
         private System.Windows.Forms.Panel pnlBusyIndicator;
         private System.Windows.Forms.Label lbCurrentAction;
         private System.Windows.Forms.Label lbLoading;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colAssociation;
+        private System.Windows.Forms.DataGridViewImageColumn colPriority;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSeverity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSummary;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colReporter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colLastUpdated;
         private System.Windows.Forms.ToolStripButton tsbtnNew;
         private System.Windows.Forms.ToolStripButton tsbtnRefresh;
-        private System.Windows.Forms.BindingSource issueDataBindingSource;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colAssociation;
-        private System.Windows.Forms.DataGridViewImageColumn priorityDataGridViewImageColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastupdatedDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn severityDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn reporterDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn handlerDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn resolutionDataGridViewTextBoxColumn;
     }
 }

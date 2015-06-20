@@ -23,6 +23,10 @@ namespace AnkhMantisConnector.IssueTracker
                 if (_control != null)
                 {
                     ConnectorSettings settings = _control.Settings;
+
+                    var settingsManager = new ConnectorSettingsManager();
+                    settingsManager.SaveLocalUserSettings(settings);
+
                     return settings.ToIssueRepositorySettings();
                 }
                 
