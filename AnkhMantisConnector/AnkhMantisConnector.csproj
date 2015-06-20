@@ -101,6 +101,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ProvideIssueRepositoryConnectorAttribute.cs" />
     <Compile Include="Web References\org.mantisbt.www\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -230,7 +235,17 @@
     <None Include="Resources\priority_none.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\busy_loader.gif" />
+    <None Include="Web References\org.mantisbt.www\HistoryData.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\org.mantisbt.www\UserData.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <!--
