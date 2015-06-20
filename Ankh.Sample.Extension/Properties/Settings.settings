@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ankh.Sample.Extension.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="Ankh_Sample_Extension_org_mantisbt_www_MantisConnect" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://www.mantisbt.org/bugs/api/soap/mantisconnect.php</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>
