@@ -66,7 +66,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            using (var mantisConnect = new org.mantisbt.www.MantisConnect(txtServerUrl.Text + _currentSettings.WebServicePath))
+            using (var mantisConnect = new org.mantisbt.www.MantisConnect())
             {
                 ConfigPageEventArgs args = new ConfigPageEventArgs();
                 try
