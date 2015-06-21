@@ -88,6 +88,7 @@ namespace AnkhMantisConnector.IssueTracker
             get { return RepositoryId ?? (RepositoryUri == null ? string.Empty : RepositoryUri.ToString()); }
         }
 
+        [Obsolete("Please return a (compiled) regex from IssueIdRegex")]
         public override string IssueIdPattern
         {
             get
@@ -119,7 +120,7 @@ namespace AnkhMantisConnector.IssueTracker
         {
             if (_settings.AddNoteAfterCommit && _control.SelectedIssues.Any())
             {
-                using (var service = new org.mantisbt.www.MantisConnect(_settings.RepositoryUri.ToString() + _settings.WebServicePath))
+                using (var service = new org.mantisbt.www.MantisConnect())
                 {
                     foreach (var issue in _control.SelectedIssues)
                     {

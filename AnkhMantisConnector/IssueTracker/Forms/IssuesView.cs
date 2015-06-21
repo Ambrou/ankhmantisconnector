@@ -45,7 +45,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         {
             lbCurrentAction.Text = "Getting issues...";
             var mantisConnector =
-                new org.mantisbt.www.MantisConnect(_settings.RepositoryUri.ToString() + _settings.WebServicePath);
+                new org.mantisbt.www.MantisConnect();
 
             mantisConnector.mc_project_get_issuesCompleted += (s, e) =>
                 {
@@ -171,7 +171,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
             InitializeStatusColorMapping();
 
             var mantisConnector =
-                new org.mantisbt.www.MantisConnect(settings.RepositoryUri.ToString() + _settings.WebServicePath);
+                new org.mantisbt.www.MantisConnect();
 
             mantisConnector.mc_filter_getCompleted += (s, e) =>
               {
