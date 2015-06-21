@@ -194,7 +194,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
         public void LoadData2(Uri repositoryUri, IDictionary<string, object> properties)
         {
-            using (var mantisConnector = new org.mantisbt.www.MantisConnect(repositoryUri.ToString() + _settings.WebServicePath))
+            using (var mantisConnector = new org.mantisbt.www.MantisConnect())
             {
                 // Would prefer to get issue headers and cached versions of the users, priorities, etc.
                 // However, there are documented issues when there are a lot of registered users.
