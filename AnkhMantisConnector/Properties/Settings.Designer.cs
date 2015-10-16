@@ -23,15 +23,12 @@ namespace AnkhMantisConnector.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://www.mantisbt.org/bugs/api/soap/mantisconnect.php")]
         public string AnkhMantisConnector_org_mantisbt_www_MantisConnect {
             get {
                 return ((string)(this["AnkhMantisConnector_org_mantisbt_www_MantisConnect"]));
-            }
-            set {
-                this["AnkhMantisConnector_org_mantisbt_www_MantisConnect"] = value;
             }
         }
     }

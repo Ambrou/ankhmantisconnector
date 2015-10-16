@@ -12,8 +12,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         private string _currentFilter;
         private Dictionary<string, Color> _statusColorMapping;
         private ConnectorSettings _settings;
-
-        private List<org.mantisbt.www.IssueData> _selectedIssues;
+        private List<mantis.IssueData> _selectedIssues;
         public IEnumerable<org.mantisbt.www.IssueData> SelectedIssues
         {
             get { return _selectedIssues.AsEnumerable(); }
