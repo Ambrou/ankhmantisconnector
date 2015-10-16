@@ -34,15 +34,5 @@ namespace AnkhMantisConnector.Properties {
                 this["AnkhMantisConnector_org_mantisbt_www_MantisConnect"] = value;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://dyonisos/mantis/api/soap/mantisconnect.php")]
-        public string AnkhMantisConnector_dyonisos_MantisConnect {
-            get {
-                return ((string)(this["AnkhMantisConnector_dyonisos_MantisConnect"]));
-            }
-        }
     }
 }
