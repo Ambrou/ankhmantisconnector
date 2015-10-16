@@ -19,7 +19,7 @@ namespace AnkhMantisConnector.IssueTracker
         private const string PROPERTY_ASSOCIATEDNOTE = "associatednode";
         private const string PROPERTY_CLOSENOTE = "closenote";
 
-        public static IssueRepositorySettings ToIssueRepositorySettings(this ConnectorSettings src)
+        public static IssueRepositorySettings ToIssueRepositorySettings(ConnectorSettings src)
         {
             var props = new Dictionary<string, Object>();
             props[PROPERTY_PROJECT] = src.ProjectId;
@@ -41,12 +41,12 @@ namespace AnkhMantisConnector.IssueTracker
             return new AnkhRepository(src.RepositoryUri, null, props);
         }
 
-        public static ConnectorSettings ToConnectorSettings(this IssueRepositorySettings src)
+        public static ConnectorSettings ToConnectorSettings(IssueRepositorySettings src)
         {
             return ToConnectorSettings(src.CustomProperties, src.RepositoryUri);
         }
 
-        public static ConnectorSettings ToConnectorSettings(this IDictionary<string, Object> src, Uri repositoryUri)
+        public static ConnectorSettings ToConnectorSettings(IDictionary<string, Object> src, Uri repositoryUri)
         {
             var retVal = new ConnectorSettings();
             retVal.RepositoryUri = new Uri(repositoryUri.ToString());
