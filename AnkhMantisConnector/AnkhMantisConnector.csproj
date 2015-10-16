@@ -39,63 +39,16 @@
   </Target>
   -->
   <ItemGroup>
-    <Content Include="Resources\busy_loader.gif" />
-    <Content Include="Resources\priority_1.gif" />
-    <Content Include="Resources\priority_2.gif" />
-    <Content Include="Resources\priority_3.gif" />
-    <Content Include="Resources\priority_low_1.gif" />
-    <Content Include="Resources\priority_none.gif" />
-    <Content Include="Resources\priority_normal.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="IssueTracker\AnkhConfigurationPage.cs" />
-    <Compile Include="IssueTracker\AnkhConnector.cs" />
-    <Compile Include="IssueTracker\AnkhRepository.cs" />
-    <Compile Include="IssueTracker\ConnectorSettings.cs" />
-    <Compile Include="IssueTracker\ConnectorSettingsManager.cs" />
-    <Compile Include="IssueTracker\Extensions.cs" />
-    <Compile Include="IssueTracker\Forms\ConfigurationPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="IssueTracker\Forms\ConfigurationPage.designer.cs">
-      <DependentUpon>ConfigurationPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IssueTracker\Forms\FormsExtensions.cs" />
-    <Compile Include="IssueTracker\Forms\IssuesView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="IssueTracker\Forms\IssuesView.designer.cs">
-      <DependentUpon>IssuesView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MantisConnectorPackage.cs" />
-    <Compile Include="PluginConstants.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ProvideIssueRepositoryConnectorAttribute.cs" />
-    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="IssueTracker\Forms\ConfigurationPage.resx">
-      <DependentUpon>ConfigurationPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IssueTracker\Forms\IssuesView.resx">
-      <DependentUpon>IssuesView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\org.mantisbt.www\mantisconnect.wsdl" />
-    <None Include="Web References\org.mantisbt.www\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -117,20 +70,5 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://www.mantisbt.org/bugs/api/soap/mantisconnect.php%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\org.mantisbt.www\</RelPath>
-      <UpdateFromURL>http://www.mantisbt.org/bugs/api/soap/mantisconnect.php%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>
-      </CachedAppSettingsObjectName>
-      <CachedSettingsPropName>
-      </CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
 </Project>
