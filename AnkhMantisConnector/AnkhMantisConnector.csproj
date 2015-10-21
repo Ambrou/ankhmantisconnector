@@ -38,4 +38,21 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Compile Include="MantisConnectorPackage.cs" />
+    <Compile Include="PluginConstants.cs" />
+    <Compile Include="ProvideIssueRepositoryConnectorAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\busy_loader.gif" />
+    <Content Include="Resources\priority_1.gif" />
+    <Content Include="Resources\priority_2.gif" />
+    <Content Include="Resources\priority_3.gif" />
+    <Content Include="Resources\priority_low_1.gif" />
+    <Content Include="Resources\priority_none.gif" />
+    <Content Include="Resources\priority_normal.gif" />
+  </ItemGroup>
 </Project>
