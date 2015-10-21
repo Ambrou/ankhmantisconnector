@@ -7,17 +7,17 @@ namespace AnkhMantisConnector.IssueTracker.Forms
     static class FormsExtensions
     {
 
-        public static void SuspendDrawing(this Control target)
+        public static void SuspendDrawing(Control target)
         {
             NativeMethods.SendMessage(target.Handle, NativeMethods.WM_SETREDRAW, 0, 0);
         }
 
-        public static void ResumeDrawing(this Control target)
+        public static void ResumeDrawing(Control target)
         {
             ResumeDrawing(target, true);
         }
 
-        public static void ResumeDrawing(this Control target, bool redraw)
+        public static void ResumeDrawing(Control target, bool redraw)
         {
             NativeMethods.SendMessage(target.Handle, NativeMethods.WM_SETREDRAW, 1, 0);
 
