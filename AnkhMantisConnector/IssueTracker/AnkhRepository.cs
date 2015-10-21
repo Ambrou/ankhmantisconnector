@@ -51,7 +51,8 @@ namespace AnkhMantisConnector.IssueTracker
         {
             _repositoryId = repositoryId;
             _properties = properties;
-            _settings = properties.ToConnectorSettings(uri);
+            _settings = Extensions.ToConnectorSettings(properties, uri);
+            //_settings = properties.ToConnectorSettings(uri);
         }
 
         /// <summary>
@@ -98,11 +99,12 @@ namespace AnkhMantisConnector.IssueTracker
 
         public override void PreCommit(PreCommitArgs args)
         {
-            if (_control.SelectedIssues.Any())
+            //if (_control.SelectedIssues.Any())
+            if (_control.SelectedIssues.Count >= 1)
             {
-                var associatedIssues = new System.Text.StringBuilder();
+                System.Text.StringBuilder associatedIssues = new System.Text.StringBuilder();
 
-                foreach (var issue in _control.SelectedIssues)
+                foreach (org.mantisbt.www.IssueData issue in _control.SelectedIssues)
                 {
                     associatedIssues.Append("#" + issue.id + ", ");
                 }
@@ -117,17 +119,20 @@ namespace AnkhMantisConnector.IssueTracker
 
         public override void PostCommit(PostCommitArgs args)
         {
-            if (_settings.AddNoteAfterCommit && _control.SelectedIssues.Any())
+            if (_settings.AddNoteAfterCommit && _control.SelectedIssues.Count >= 1)
             {
-                using (var service = new org.mantisbt.www.MantisConnect())
+                using (org.mantisbt.www.MantisConnect service = new org.mantisbt.www.MantisConnect())
                 {
-                    foreach (var issue in _control.SelectedIssues)
+                    foreach (org.mantisbt.www.IssueData issue in _control.SelectedIssues)
                     {
-                        service.mc_issue_note_add(_settings.UserName, _settings.Password, issue.id,
-                                                  new org.mantisbt.www.IssueNoteData()
-                                                      {
-                                                          text = string.Format(_settings.AssociatedCommitNoteText, args.Revision, args.CommitMessage)
-                                                      });
+                        org.mantisbt.www.IssueNoteData issueNoteData = new org.mantisbt.www.IssueNoteData();
+                        issueNoteData.text = string.Format(_settings.AssociatedCommitNoteText, args.Revision, args.CommitMessage);
+                        service.mc_issue_note_add(_settings.UserName, _settings.Password, issue.id, issueNoteData);
+                        //service.mc_issue_note_add(_settings.UserName, _settings.Password, issue.id,
+                        //                          new org.mantisbt.www.IssueNoteData()
+                        //                              {
+                        //                                  text = string.Format(_settings.AssociatedCommitNoteText, args.Revision, args.CommitMessage)
+                        //                              });
                     }
                 }
 
@@ -145,7 +150,7 @@ namespace AnkhMantisConnector.IssueTracker
             if (!string.IsNullOrEmpty(issueId))
             {
                 // Does AnkhSVN not return capturing groups? just the match? check AnkhSVN source.
-                var regEx = new System.Text.RegularExpressions.Regex("\\d+",
+                System.Text.RegularExpressions.Regex regEx = new System.Text.RegularExpressions.Regex("\\d+",
                                                                      System.Text.RegularExpressions.RegexOptions.
                                                                          Compiled);
 

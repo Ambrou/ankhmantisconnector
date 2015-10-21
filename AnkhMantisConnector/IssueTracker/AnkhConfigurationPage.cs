@@ -24,10 +24,11 @@ namespace AnkhMantisConnector.IssueTracker
                 {
                     ConnectorSettings settings = _control.Settings;
 
-                    var settingsManager = new ConnectorSettingsManager();
+                    ConnectorSettingsManager settingsManager = new ConnectorSettingsManager();
                     settingsManager.SaveLocalUserSettings(settings);
 
-                    return settings.ToIssueRepositorySettings();
+                    return Extensions.ToIssueRepositorySettings(settings);
+                    //return settings.ToIssueRepositorySettings();
                 }
                 
                 return _settings;
@@ -39,7 +40,8 @@ namespace AnkhMantisConnector.IssueTracker
                     && _settings.ConnectorName == PluginConstants.ConnectorName)
                 {
                     // populate UI with new settings
-                    ((ConfigurationPage)Control).Settings = _settings.ToConnectorSettings();
+                    ((ConfigurationPage)Control).Settings = Extensions.ToConnectorSettings(_settings);
+                    //((ConfigurationPage)Control).Settings = _settings.ToConnectorSettings();
                 }
             }
         }

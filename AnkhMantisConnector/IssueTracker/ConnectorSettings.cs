@@ -138,7 +138,7 @@ namespace AnkhMantisConnector.IssueTracker
             }
             set
             {
-                this._FetchingMethod;
+                this._FetchingMethod = value;
             }
         }
 
@@ -170,7 +170,7 @@ namespace AnkhMantisConnector.IssueTracker
             }
             set
             {
-                this._AddNoteAfterCommit = value
+                this._AddNoteAfterCommit = value;
             }
         }
 

@@ -14,9 +14,11 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         private ConnectorSettings _settings;
 
         private List<org.mantisbt.www.IssueData> _selectedIssues;
-        public IEnumerable<org.mantisbt.www.IssueData> SelectedIssues
+        //public IEnumerable<org.mantisbt.www.IssueData> SelectedIssues
+        public IList<org.mantisbt.www.IssueData> SelectedIssues
         {
-            get { return _selectedIssues.AsEnumerable(); }
+            get { return _selectedIssues; }
+            //get { return _selectedIssues.AsEnumerable(); }
         }
 
         public IssuesView()
@@ -28,54 +30,102 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
         private void InitializeStatusColorMapping()
         {
-            _statusColorMapping = new Dictionary<string, Color>()
-                                      {
-                                          {"10", Color.FromArgb(0xfc, 0xbd, 0xbd)},
-                                          {"20", Color.FromArgb(0xe3, 0xb7, 0xeb)},
-                                          {"30", Color.FromArgb(0xff, 0xcd, 0x85)},
-                                          {"40", Color.FromArgb(0xff, 0xf4, 0x94)},
-                                          {"50", Color.FromArgb(0xc2, 0xdf, 0xff)},
-                                          {"80", Color.FromArgb(0xd2, 0xf5, 0xb0)},
-                                          {"90", Color.FromArgb(0xc9, 0xcc, 0xc4)}
-                                      };
+            _statusColorMapping = new Dictionary<string, Color>();
+            _statusColorMapping.Add("10", Color.FromArgb(0xfc, 0xbd, 0xbd));
+            _statusColorMapping.Add("20", Color.FromArgb(0xe3, 0xb7, 0xeb));
+            _statusColorMapping.Add("30", Color.FromArgb(0xff, 0xcd, 0x85));
+            _statusColorMapping.Add("40", Color.FromArgb(0xff, 0xf4, 0x94));
+            _statusColorMapping.Add("50", Color.FromArgb(0xc2, 0xdf, 0xff));
+            _statusColorMapping.Add("80", Color.FromArgb(0xd2, 0xf5, 0xb0));
+            _statusColorMapping.Add("90", Color.FromArgb(0xc9, 0xcc, 0xc4));
+            //_statusColorMapping = new Dictionary<string, Color>()
+            //                          {
+            //                              {"10", Color.FromArgb(0xfc, 0xbd, 0xbd)},
+            //                              {"20", Color.FromArgb(0xe3, 0xb7, 0xeb)},
+            //                              {"30", Color.FromArgb(0xff, 0xcd, 0x85)},
+            //                              {"40", Color.FromArgb(0xff, 0xf4, 0x94)},
+            //                              {"50", Color.FromArgb(0xc2, 0xdf, 0xff)},
+            //                              {"80", Color.FromArgb(0xd2, 0xf5, 0xb0)},
+            //                              {"90", Color.FromArgb(0xc9, 0xcc, 0xc4)}
+            //                          };
+        }
+
+        public void mc_project_get_issuesCompleted_CALLBACK(object sender, org.mantisbt.www.mc_project_get_issuesCompletedEventArgs e)
+        {
+            org.mantisbt.www.MantisConnect mantisConnector =
+                new org.mantisbt.www.MantisConnect();
+
+            try
+            {
+                IssuesView issueView = (IssuesView)sender;
+                DisplayIssues(_currentPage, e.Result, e.Error, e.Cancelled);
+                //_currentFilter = _currentFilter;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error obteniendo datos: " + e.Error.Message, "Error");
+            }
+            mantisConnector.Dispose();
+        }
+
+        public void mc_filter_get_issuesCompleted_CALLBACK(object sender, org.mantisbt.www.mc_filter_get_issuesCompletedEventArgs e)
+        {
+            org.mantisbt.www.MantisConnect mantisConnector =
+                new org.mantisbt.www.MantisConnect();
+
+            try
+            {
+                IssuesView issueView = (IssuesView)sender;
+                DisplayIssues(_currentPage, e.Result, e.Error, e.Cancelled);
+                //_currentFilter = _currentFilter;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error obteniendo datos: " + e.Error.Message, "Error");
+            }
+            mantisConnector.Dispose();
         }
 
         private void DisplayIssues(string filterId, int page)
         {
             lbCurrentAction.Text = "Getting issues...";
-            var mantisConnector =
+            org.mantisbt.www.MantisConnect mantisConnector =
                 new org.mantisbt.www.MantisConnect();
 
-            mantisConnector.mc_project_get_issuesCompleted += (s, e) =>
-                {
-                    try
-                    {
-                        DisplayIssues(page, e.Result, e.Error, e.Cancelled);
-                        _currentFilter = filterId;
-                    } 
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Error obteniendo datos: " + e.Error.Message, "Error");
-                    }
+            _currentPage = page;
+            _currentFilter = filterId;
+            mantisConnector.mc_project_get_issuesCompleted += mc_project_get_issuesCompleted_CALLBACK;
+            //mantisConnector.mc_project_get_issuesCompleted += (s, e) =>
+            //    {
+            //        try
+            //        {
+            //            DisplayIssues(page, e.Result, e.Error, e.Cancelled);
+            //            _currentFilter = filterId;
+            //        } 
+            //        catch (Exception)
+            //        {
+            //            MessageBox.Show("Error obteniendo datos: " + e.Error.Message, "Error");
+            //        }
 
-                    mantisConnector.Dispose();
-                };
+            //        mantisConnector.Dispose();
+            //    };
 
-            mantisConnector.mc_filter_get_issuesCompleted += (s, e) =>
-            {
+            mantisConnector.mc_filter_get_issuesCompleted += mc_filter_get_issuesCompleted_CALLBACK;
+            //mantisConnector.mc_filter_get_issuesCompleted += (s, e) =>
+            //{
 
-                try
-                {
-                    DisplayIssues(page, e.Result, e.Error, e.Cancelled);
-                    _currentFilter = filterId;
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Error obteniendo datos: " + e.Error.Message, "Error");
-                }
+            //    try
+            //    {
+            //        DisplayIssues(page, e.Result, e.Error, e.Cancelled);
+            //        _currentFilter = filterId;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        MessageBox.Show("Error obteniendo datos: " + e.Error.Message, "Error");
+            //    }
 
-                mantisConnector.Dispose();
-            };
+            //    mantisConnector.Dispose();
+            //};
 
             if (filterId == "-1")
                 mantisConnector.mc_project_get_issuesAsync(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(),
@@ -87,9 +137,10 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
         private void DisplayIssues(int page, org.mantisbt.www.IssueData[] issues, Exception error, bool cancelled)
         {
-            dgvIssues.SuspendDrawing();
+            FormsExtensions.SuspendDrawing(dgvIssues);
+            //dgvIssues.SuspendDrawing();
             dgvIssues.Rows.Clear();
-            foreach (var issue in issues)
+            foreach (org.mantisbt.www.IssueData issue in issues)
             {
                 int newIndex = dgvIssues.Rows.Add(false, GetPriorityImage(issue.priority.id), issue.id, issue.category, 
                     issue.severity.name, issue.status.name + (issue.handler != null ? " (" + issue.handler.name + ")" : string.Empty), 
@@ -103,9 +154,10 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
             pnlBusyIndicator.Visible = false;
             dgvIssues.Visible = true;
-            dgvIssues.ResumeDrawing();
+            FormsExtensions.ResumeDrawing(dgvIssues);
+            //dgvIssues.ResumeDrawing();
 
-            _currentPage = page;
+            //_currentPage = page;
             tstxtPage.Text = _currentPage.ToString();
             if (_currentPage > 1)
             {
@@ -157,34 +209,56 @@ namespace AnkhMantisConnector.IssueTracker.Forms
             return retVal;
         }
 
+        public void mc_filter_getCompleted_CALLBACK(object sender, org.mantisbt.www.mc_filter_getCompletedEventArgs e)
+        {
+            org.mantisbt.www.MantisConnect mantisConnector =
+                new org.mantisbt.www.MantisConnect();
+
+            org.mantisbt.www.FilterData[] filters = e.Result;
+            org.mantisbt.www.FilterData filterData = new org.mantisbt.www.FilterData();// { name = "[No filter]", id = "-1" };
+            filterData.name = "[No filter]";
+            filterData.id = "-1";
+            Array.Reverse(filters);
+            Array.Resize(ref filters, filters.Length + 1);
+            Array.Reverse(filters);
+            filters[0] = filterData;
+            tscbFilter.ComboBox.DataSource = filters;
+            tscbFilter.ComboBox.DisplayMember = "name";
+
+            mantisConnector.Dispose();
+        }
+
         public void LoadData(ConnectorSettings settings)
         {
             _settings = settings;
 
             if (_settings.LocalAccount)
             {
-                var settingsManager = new ConnectorSettingsManager();
+                ConnectorSettingsManager settingsManager = new ConnectorSettingsManager();
                 settingsManager.LoadLocalUserSettings(_settings);
             }
 
             InitializeStatusColorMapping();
 
-            var mantisConnector =
+            org.mantisbt.www.MantisConnect mantisConnector =
                 new org.mantisbt.www.MantisConnect();
 
-            mantisConnector.mc_filter_getCompleted += (s, e) =>
-              {
-                  var filters = e.Result;
-                  var filterData = new org.mantisbt.www.FilterData() { name = "[No filter]", id = "-1" };
-                  Array.Reverse(filters);
-                  Array.Resize(ref filters, filters.Length + 1);
-                  Array.Reverse(filters);
-                  filters[0] = filterData;
-                  tscbFilter.ComboBox.DataSource = filters;
-                  tscbFilter.ComboBox.DisplayMember = "name";
+            mantisConnector.mc_filter_getCompleted += mc_filter_getCompleted_CALLBACK;
+            //mantisConnector.mc_filter_getCompleted += (s, e) =>
+            //  {
+            //      var filters = e.Result;
+            //      var filterData = new org.mantisbt.www.FilterData();// { name = "[No filter]", id = "-1" };
+            //      filterData.name = "[No filter]";
+            //      filterData.id = "-1";
+            //      Array.Reverse(filters);
+            //      Array.Resize(ref filters, filters.Length + 1);
+            //      Array.Reverse(filters);
+            //      filters[0] = filterData;
+            //      tscbFilter.ComboBox.DataSource = filters;
+            //      tscbFilter.ComboBox.DisplayMember = "name";
                   
-                  mantisConnector.Dispose();
-              };
+            //      mantisConnector.Dispose();
+            //  };
 
             lbCurrentAction.Text = "Getting filters...";
             
@@ -193,14 +267,19 @@ namespace AnkhMantisConnector.IssueTracker.Forms
 
         public void LoadData2(Uri repositoryUri, IDictionary<string, object> properties)
         {
-            using (var mantisConnector = new org.mantisbt.www.MantisConnect())
+            using (org.mantisbt.www.MantisConnect mantisConnector = new org.mantisbt.www.MantisConnect())
             {
                 // Would prefer to get issue headers and cached versions of the users, priorities, etc.
                 // However, there are documented issues when there are a lot of registered users.
-                var issueHeaders = mantisConnector.mc_project_get_issue_headers(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(), "1", "100");
-                var filters = mantisConnector.mc_filter_get(_settings.UserName, _settings.Password, _settings.ProjectId.ToString());
-                var users = mantisConnector.mc_project_get_users(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(), "10").
-                    ToDictionary(x => x.id, x => x);
+                //var issueHeaders = mantisConnector.mc_project_get_issue_headers(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(), "1", "100");
+                //var filters = mantisConnector.mc_filter_get(_settings.UserName, _settings.Password, _settings.ProjectId.ToString());
+                //var users = mantisConnector.mc_project_get_users(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(), "10").
+                //    ToDictionary(x => x.id, x => x);
+                org.mantisbt.www.IssueHeaderData[] issueHeaders = mantisConnector.mc_project_get_issue_headers(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(), "1", "100");
+                org.mantisbt.www.FilterData[] filters = mantisConnector.mc_filter_get(_settings.UserName, _settings.Password, _settings.ProjectId.ToString());
+                org.mantisbt.www.AccountData[] users = mantisConnector.mc_project_get_users(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(), "10");
+                //var users = mantisConnector.mc_project_get_users(_settings.UserName, _settings.Password, _settings.ProjectId.ToString(), "10").
+                //    ToDictionary(x => x.id, x => x);
                 /*                lvIssues.BeginUpdate();
                                 for (int i = 0, count = issueHeaders.Length; i < count; i++)
                                 {
@@ -257,7 +336,7 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         {
             if (e.ColumnIndex == 0)
             {
-                var row = dgvIssues.Rows[e.RowIndex];
+                DataGridViewRow row = dgvIssues.Rows[e.RowIndex];
 
                 if ((bool)row.Cells[0].EditedFormattedValue)
                     _selectedIssues.Add(((org.mantisbt.www.IssueData)row.Tag));
@@ -270,8 +349,8 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         {
             if (e.Column == colPriority)
             {
-                var issueA = ((org.mantisbt.www.IssueData)dgvIssues.Rows[e.RowIndex1].Tag);
-                var issueB = ((org.mantisbt.www.IssueData)dgvIssues.Rows[e.RowIndex2].Tag);
+                org.mantisbt.www.IssueData issueA = ((org.mantisbt.www.IssueData)dgvIssues.Rows[e.RowIndex1].Tag);
+                org.mantisbt.www.IssueData issueB = ((org.mantisbt.www.IssueData)dgvIssues.Rows[e.RowIndex2].Tag);
 
                 e.SortResult = int.Parse(issueA.priority.id).CompareTo(int.Parse(issueB.priority.id));
 

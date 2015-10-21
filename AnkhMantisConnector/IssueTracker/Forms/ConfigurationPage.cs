@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Ankh.ExtensionPoints.IssueTracker;
+using AnkhMantisConnector.org.mantisbt.www;
 
 namespace AnkhMantisConnector.IssueTracker.Forms
 {
@@ -66,12 +67,12 @@ namespace AnkhMantisConnector.IssueTracker.Forms
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            using (var mantisConnect = new org.mantisbt.www.MantisConnect())
+            using (org.mantisbt.www.MantisConnect mantisConnect = new org.mantisbt.www.MantisConnect())
             {
                 ConfigPageEventArgs args = new ConfigPageEventArgs();
                 try
                 {
-                    var projects = mantisConnect.mc_projects_get_user_accessible(txtUser.Text, txtPassword.Text);
+                    ProjectData[] projects = mantisConnect.mc_projects_get_user_accessible(txtUser.Text, txtPassword.Text);
 
                     cbProjects.DataSource = projects;
                     cbProjects.DisplayMember = "name";

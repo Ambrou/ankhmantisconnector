@@ -40,7 +40,8 @@ namespace AnkhMantisConnector.IssueTracker
 
             foreach (string entry in entries)
             {
-                var keyValue = entry.Split(new[] {'='}, 2);
+                //var keyValue = entry.Split(new[] {'='}, 2);
+                string[] keyValue = entry.Split('=');
                 if (keyValue.Length != 2) continue;
 
                 switch (keyValue[0])

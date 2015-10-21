@@ -21,7 +21,7 @@ namespace AnkhMantisConnector.IssueTracker
 
         public static IssueRepositorySettings ToIssueRepositorySettings(ConnectorSettings src)
         {
-            var props = new Dictionary<string, Object>();
+            Dictionary<string, Object> props = new Dictionary<string, Object>();
             props[PROPERTY_PROJECT] = src.ProjectId;
             props[PROPERTY_PERPAGE] = src.IssuesPerPage;
             props[PROPERTY_LOCALACC] = src.LocalAccount;
@@ -48,7 +48,7 @@ namespace AnkhMantisConnector.IssueTracker
 
         public static ConnectorSettings ToConnectorSettings(IDictionary<string, Object> src, Uri repositoryUri)
         {
-            var retVal = new ConnectorSettings();
+            ConnectorSettings retVal = new ConnectorSettings();
             retVal.RepositoryUri = new Uri(repositoryUri.ToString());
 
             Object value = null;
