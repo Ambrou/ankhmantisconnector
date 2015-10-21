@@ -45,6 +45,15 @@
     <Compile Include="IssueTracker\ConnectorSettings.cs" />
     <Compile Include="IssueTracker\ConnectorSettingsManager.cs" />
     <Compile Include="IssueTracker\Extensions.cs" />
+    <Compile Include="IssueTracker\Forms\ConfigurationPage.cs" />
+    <Compile Include="IssueTracker\Forms\ConfigurationPage.designer.cs">
+      <DependentUpon>ConfigurationPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IssueTracker\Forms\FormsExtensions.cs" />
+    <Compile Include="IssueTracker\Forms\IssuesView.cs" />
+    <Compile Include="IssueTracker\Forms\IssuesView.designer.cs">
+      <DependentUpon>IssuesView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MantisConnectorPackage.cs" />
     <Compile Include="PluginConstants.cs" />
@@ -72,6 +81,14 @@
     <Content Include="Resources\priority_normal.gif" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="IssueTracker\Forms\ConfigurationPage.resx">
+      <DependentUpon>ConfigurationPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IssueTracker\Forms\IssuesView.resx">
+      <DependentUpon>IssuesView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
