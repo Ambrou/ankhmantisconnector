@@ -39,6 +39,12 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="IssueTracker\AnkhConfigurationPage.cs" />
+    <Compile Include="IssueTracker\AnkhConnector.cs" />
+    <Compile Include="IssueTracker\AnkhRepository.cs" />
+    <Compile Include="IssueTracker\ConnectorSettings.cs" />
+    <Compile Include="IssueTracker\ConnectorSettingsManager.cs" />
+    <Compile Include="IssueTracker\Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MantisConnectorPackage.cs" />
     <Compile Include="PluginConstants.cs" />
