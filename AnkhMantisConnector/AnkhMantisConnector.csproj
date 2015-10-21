@@ -45,12 +45,16 @@
     <Compile Include="IssueTracker\ConnectorSettings.cs" />
     <Compile Include="IssueTracker\ConnectorSettingsManager.cs" />
     <Compile Include="IssueTracker\Extensions.cs" />
-    <Compile Include="IssueTracker\Forms\ConfigurationPage.cs" />
+    <Compile Include="IssueTracker\Forms\ConfigurationPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="IssueTracker\Forms\ConfigurationPage.designer.cs">
       <DependentUpon>ConfigurationPage.cs</DependentUpon>
     </Compile>
     <Compile Include="IssueTracker\Forms\FormsExtensions.cs" />
-    <Compile Include="IssueTracker\Forms\IssuesView.cs" />
+    <Compile Include="IssueTracker\Forms\IssuesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="IssueTracker\Forms\IssuesView.designer.cs">
       <DependentUpon>IssuesView.cs</DependentUpon>
     </Compile>
@@ -94,6 +98,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Ankh.ExtensionPoints, Version=2.5.12478.19, Culture=neutral, PublicKeyToken=068e4b3e6ce74d73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\AnkhSVN 2\Ankh.ExtensionPoints.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Debugger.Interop, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Visual Studio 2005 SDK\2007.02\VisualStudioIntegration\Common\Assemblies\Microsoft.VisualStudio.Debugger.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Visual Studio 2005 SDK\2007.02\VisualStudioIntegration\Common\Assemblies\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Visual Studio 2005 SDK\2007.02\VisualStudioIntegration\Common\Assemblies\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 </Project>

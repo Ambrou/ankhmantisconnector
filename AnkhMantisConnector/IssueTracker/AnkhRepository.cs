@@ -10,7 +10,6 @@
 //TODO: Make TortoiseSVN plugin
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Ankh.ExtensionPoints.IssueTracker;
 using AnkhMantisConnector.IssueTracker.Forms;
